@@ -1,5 +1,6 @@
 package com.neusoft.springboot1.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class User {
@@ -13,7 +14,7 @@ public class User {
     private Integer status;
     private String uPic;
     private Integer sex;
-    private Date addtime;
+    private Timestamp addtime;
 
     public Integer getuId() {
         return uId;
@@ -95,11 +96,11 @@ public class User {
         this.sex = sex;
     }
 
-    public Date getAddtime() {
+    public Timestamp getAddtime() {
         return addtime;
     }
 
-    public void setAddtime(Date addtime) {
+    public void setAddtime(Timestamp addtime) {
         this.addtime = addtime;
     }
 }

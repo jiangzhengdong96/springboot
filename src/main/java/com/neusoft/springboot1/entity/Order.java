@@ -8,11 +8,17 @@ public class Order {
     private String oName;
     private Integer status ;
     private Timestamp addtime;
-    private String gName;
     private Integer payment;
     private String uName;
     private String address;
-    private Integer price;
+    private float price;
+    private Integer isPay;
+    private Timestamp paytime;
+    private Integer isSend;
+    private Timestamp sendtime;
+    private Integer isReceipt;
+    private Timestamp receipttime;
+    private String sendNumber;
 
     public Integer getoId() {
         return oId;
@@ -46,13 +52,13 @@ public class Order {
         this.addtime = addtime;
     }
 
-    public String getgName() {
-        return gName;
-    }
-
-    public void setgName(String gName) {
-        this.gName = gName;
-    }
+//    public String getgName() {
+//        return gName;
+//    }
+//
+//    public void setgName(String gName) {
+//        this.gName = gName;
+//    }
 
     public Integer getPayment() {
         return payment;
@@ -78,13 +84,77 @@ public class Order {
         this.address = address;
     }
 
-    public Integer getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(float price) {
         this.price = price;
     }
+
+    public Integer getIsPay() {
+        return isPay;
+    }
+
+    public void setIsPay(Integer isPay) {
+        this.isPay = isPay;
+    }
+
+    public Timestamp getPaytime() {
+        return paytime;
+    }
+
+    public void setPaytime(Timestamp paytime) {
+        this.paytime = paytime;
+    }
+
+    public Integer getIsSend() {
+        return isSend;
+    }
+
+    public void setIsSend(Integer isSend) {
+        this.isSend = isSend;
+    }
+
+    public Timestamp getSendtime() {
+        return sendtime;
+    }
+
+    public void setSendtime(Timestamp sendtime) {
+        this.sendtime = sendtime;
+    }
+
+    public Integer getIsReceipt() {
+        return isReceipt;
+    }
+
+    public void setIsReceipt(Integer isReceipt) {
+        this.isReceipt = isReceipt;
+    }
+
+    public Timestamp getReceipttime() {
+        return receipttime;
+    }
+
+    public void setReceipttime(Timestamp receipttime) {
+        this.receipttime = receipttime;
+    }
+
+    public String getSendNumber() {
+        return sendNumber;
+    }
+
+    public void setSendNumber(String sendNumber) {
+        this.sendNumber = sendNumber;
+    }
+
+    //    public Integer getPrice() {
+//        return price;
+//    }
+//
+//    public void setPrice(Integer price) {
+//        this.price = price;
+//    }
 
 //    public Integer getgId() {
 //        return gId;

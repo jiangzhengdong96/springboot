@@ -26,7 +26,10 @@ public class AdminController {
     private OrderService orderService;
     @Autowired
     private CommentService commentService;
-
+    @Autowired
+    private ShopecarService shopecarService;
+    @Autowired
+    private OrderGoodsService orderGoodsService;
     @GetMapping("/user")
     public String getAllUser(Model model){
      List<User> users = userService.getAllUser();
@@ -81,6 +84,27 @@ public class AdminController {
         List<Comment> comments = commentService.getAllComment();
         model.addAttribute("commentlist",comments);
         return "admin/commentlist";
+    }
+
+    @GetMapping("/shopcar")
+    public String getAllShopcar(Model model){
+        List<Shopcar> shopcars = shopecarService.getAllShopcar();
+        model.addAttribute("shopcarlist",shopcars);
+        return "admin/shopcarlist";
+    }
+
+    @RequestMapping(value = "/shopcar/{uId}",method=RequestMethod.POST)
+    @ResponseBody
+    public List<Shopcar> getAllShopcar(Model model,@PathVariable("uId") Integer uId){
+        List<Shopcar> shopcars = shopecarService.getShopcarById(uId);
+        return shopcars;
+    }
+
+    @RequestMapping(value = "/ordergoods/{oId}",method=RequestMethod.POST)
+    @ResponseBody
+    public List<OrderGoods> getAllOrderGoodsById(Model model,@PathVariable("oId") Integer oId){
+        List<OrderGoods> orderGoods = orderGoodsService.getAllOrderGoodsById(oId);
+        return orderGoods;
     }
 //    @PostMapping("/userStop")
 //    public void userStop(){
