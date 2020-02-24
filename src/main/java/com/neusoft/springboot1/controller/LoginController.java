@@ -1,7 +1,6 @@
 package com.neusoft.springboot1.controller;
 
 import com.neusoft.springboot1.entity.Manager;
-import com.neusoft.springboot1.mapper.ManagerMapper;
 import com.neusoft.springboot1.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +35,16 @@ public class LoginController {
             map.put("msg","用户不存在");
             return "login";
         }
-
-
     }
+
+//    @RequestMapping(value = "/logout")
+//    public String logout(HttpServletRequest request){
+//        HttpSession session = request.getSession();
+//        if(null != session){
+//           Manager manager = (Manager) session.getAttribute("loginUser");
+//            session.invalidate();
+//        }
+//        return "login";
+//    }
+
 }

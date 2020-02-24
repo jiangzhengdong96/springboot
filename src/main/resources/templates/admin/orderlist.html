@@ -10,7 +10,7 @@
 
 		<title>Dashboard Template for Bootstrap</title>
 		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
+		<link href="asserts/css/bootstrap.min.css" th:href="@{asserts/css/bootstrap.min.css}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
 		<link href="asserts/css/dashboard.css" th:href="@{asserts/css/dashboard.css}" rel="stylesheet">
@@ -74,16 +74,16 @@
 									<th>支付用户</th>
 									<th>价格</th>
 									<th>送货方式</th>
-									<th>收货地址</th>
+									<th style="width:25px">收货地址</th>
 									<th>是否支付</th>
 									<th>是否发货</th>
 									<th>是否接收</th>
-									<th>订单商品信息</th>
+									<th>相关商品</th>
 									<th>快递单号</th>
 									<th>支付时间</th>
 									<th>发货时间</th>
 									<th>接收时间</th>
-									<th>添加时间</th>
+<!--									<th>添加时间</th>-->
 									<th>状态</th>
 									<th>操作</th>
 								</tr>
@@ -98,7 +98,7 @@
 								<span class="label label-success radius" th:if="${order.payment} eq '1'">面对面收货</span>
 								<span class="label label-defaunt radius" th:if="${order.payment} eq '0'">邮寄</span>
 							</td>
-							<td class="orderstatus">
+							<td  style="width:25px" class="orderstatus">
 								<span class="label label-success radius" th:if="${order.payment} eq '1'">///////</span>
 								<span class="label label-defaunt radius" th:if="${order.payment} eq '0'">[[${order.address}]]</span>
 							</td>
@@ -115,11 +115,11 @@
 								<span class="label label-defaunt radius" th:if="${order.isReceipt} eq '0'">未收货</span>
 							</td>
 							<td>
-								<a id="myModal" data-toggle="modal" data-target="#exampleModal" th:onClick="'javascript:values('+${order.oId}+')'">点击查看订单商品信息</a>
+								<a id="myModal" data-toggle="modal" data-target="#exampleModal" th:onClick="'javascript:values('+${order.oId}+')'">点击查看</a>
 							</td>
 							<td class="orderstatus">
-								<span class="label label-success radius" th:if="${order.isSend} eq '1'">[[${order.sendNumber}]]</span>
-								<span class="label label-defaunt radius" th:if="${order.isSend} eq '0'">//////</span>
+								<span class="label label-success radius" th:if="${order.isSend} eq '1' and ${order.payment} eq '0'">[[${order.sendNumber}]]</span>
+								<span class="label label-defaunt radius" th:if="${order.isSend} eq '0' or ${order.payment} eq '1'">//////</span>
 							</td>
 							<td class="orderstatus">
 								<span class="label label-success radius" th:if="${order.isPay} eq '1'">[[${#dates.format(order.paytime, 'yyyy/MM/dd HH:mm:ss')}]]</span>
@@ -133,7 +133,7 @@
 								<span class="label label-success radius" th:if="${order.isReceipt} eq '1'">[[${#dates.format(order.receipttime, 'yyyy/MM/dd HH:mm:ss')}]]</span>
 								<span class="label label-defaunt radius" th:if="${order.isReceipt} eq '0'">//////</span>
 							</td>
-							<td th:text="${#dates.format(order.addtime, 'yyyy/MM/dd HH:mm:ss')}"></td>
+<!--							<td th:text="${#dates.format(order.addtime, 'yyyy/MM/dd HH:mm:ss')}"></td>-->
 							<td class="orderstatus">
 							<span class="label label-success radius" th:if="${order.status} eq '1'">正常</span>
 							<span class="label label-defaunt radius" th:if="${order.status} eq '0'">已删除</span>
@@ -148,9 +148,10 @@
 <!--								<button th:attr="del_uri=@{/emp/}+${emp.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>-->
 <!--							</td>-->
 							<td class="manage">
-								<button type="button" class="btn btn-sm btn-danger deleteBtn" >删除</button>
-<!--								<a class="btn btn-sm btn-primary">修改</a>-->
-								</td>
+								<a style="text-decoration:none"  th:onClick="'javascript:changeorderstatus('+${order.oId}+','+${order.status}+')'" class="btn btn-sm btn-success startBtn"   th:if="${order.status} eq '0' ">激活</a>
+								<a style="text-decoration:none"  th:onClick="'javascript:changeorderstatus('+${order.oId}+','+${order.status}+')'"  class="btn btn-sm btn-danger stopBtn"   th:if="${order.status} eq '1'">删除</a>
+
+							</td>
 
 						</tr>
 						</tbody>
@@ -193,7 +194,7 @@
 										</tbody>
 									</table>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
 									</div>
 								</form>
 							</div>
@@ -220,21 +221,11 @@
 
 		<!-- Icons -->
 		<script type="text/javascript" src="asserts/js/feather.min.js"></script>
-<script>
-
-$("deleteBtn").click(function(){
-$.ajax({
-		type: 'POST',
-		url: '/userStop',
-		data: {
-                'status': $("#status").val(),
-            },
-		});
-})
 
 
 
-</script>
+
+<!--</script>-->
 <script type="text/javascript">
 <!--    $("#exampleModal").modal("hide");-->
 
@@ -243,7 +234,7 @@ $.ajax({
 							url:"ordergoods/"+ID,
 							type:"post",
 							data:{
-								uId:ID
+<!--								uId:ID-->
 							},
 							datatype:"json",
 							success:function(data){
@@ -288,6 +279,32 @@ $.ajax({
 
 </script>
 
+
+<script type="text/javascript">
+
+function changeorderstatus(Id,status){
+		$.ajax({
+		url:'orderStatusChange',
+		type:'POST',
+		data:{
+                "oId": Id,
+                "status":status,
+            },
+        success:function(data){
+
+							    // 显示模态框
+<!--							    $('#findForm').modal('show');-->
+						window.location.reload();
+							},
+							error:function(){
+								alert("数据传输异常");
+							}
+		});
+
+}
+
+
+</script>
 
 	</body>
 

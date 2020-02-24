@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Dashboard Template for Bootstrap</title>
+	<!-- Bootstrap core CSS -->
+
+	<link href="../asserts/css/bootstrap.css"  th:href="@{/asserts/css/bootstrap.css}" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="../asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+	<style type="text/css">
+			/* Chart.js */
+
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+		</style>
+</head>
+
+<body>
+<!--		<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">-->
+<!--			<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">Company name</a>-->
+<!--			<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
+<!--			<ul class="navbar-nav px-3">-->
+<!--				<li class="nav-item text-nowrap">-->
+<!--					<a class="nav-link" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">Sign out</a>-->
+<!--				</li>-->
+<!--			</ul>-->
+<!--		</nav>-->
+<!--引入抽取的topbar-->
+<!--模板名，会使用thymeleaf的前后配置规则进行解析-->
+<div th:replace="~{commons/bar :: topbar}"></div>
+<div class="container-fluid">
+	<div class="row">
+		<!--				引入侧边栏-->
+		<div th:replace="~{commons/bar::#sidebar(activeUri='type')}"></div>
+		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+			<form th:action="@{/typesave1}" method="post">
+				<!--员工id-->
+				<input type="hidden" name="tId" th:value="${type.tId}">
+				<!--http请求方式-->
+				<!--						发送put请求修改员工数据-->
+				<!--						页面创建一个post表单-->
+				<!--						创建一个input项name=“_method”值就是我们指定的请求方式-->
+<!--				<input type="hidden" name="_method" value="put">-->
+				<div class="form-group">
+					<label>商品类型</label>
+					<p style="color:red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+					<input name="tName" th:value="${type.tName}" type="text" class="form-control" placeholder="zhangsan">
+				</div>
+
+				<button type="submit" class="btn btn-primary">修改</button>
+			</form>
+		</main>
+	</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+==================================================   		给静态文件放到static.asserts.js  	js的文件就导入在这里 css static.asserts.css就这里
+																因为你的html在这个templates.admin路径下所以要返回一个路径找到static.asserts.js下的js文件-->
+<!-- Placed at the end of the document so the pages load faster 所以不在一个树节点下所以要返回../你应该懂-->
+<!--th:src="@{../asserts/js/jquery-3.2.1.min.js}"-->
+				<script type="text/javascript" src="../asserts/js/jquery-3.2.1.min.js" th:src="@{/asserts/js/jquery-3.2.1.min.js}" ></script>
+				<script type="text/javascript" src="../asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+				<script type="text/javascript" src="../asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+				<!-- Icons -->
+				<script type="text/javascript" src="../asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+
+
+
+
+
+</body>
+
+</html>
+
+

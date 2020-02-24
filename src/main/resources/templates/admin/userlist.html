@@ -10,7 +10,7 @@
 
 		<title>Dashboard Template for Bootstrap</title>
 		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
+		<link href="asserts/css/bootstrap.min.css" th:href="@{asserts/css/bootstrap.min.css}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
 		<link href="asserts/css/dashboard.css" th:href="@{asserts/css/dashboard.css}" rel="stylesheet">
@@ -112,10 +112,9 @@
 <!--								<button th:attr="del_uri=@{/emp/}+${emp.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>-->
 <!--							</td>-->
 							<td class="manage">
-								<button type="button" class="btn btn-sm btn-danger deleteBtn" >删除</button>
-<!--								<a class="btn btn-sm btn-primary">修改</a>-->
-								</td>
-							<input id="status" value="${user.status}" type="hidden">
+								<a style="text-decoration:none"  th:onClick="'javascript:changeuserstatus('+${user.uId}+','+${user.status}+')'" class="btn btn-sm btn-success startBtn"   th:if="${user.status} eq '0' ">激活</a>
+								<a style="text-decoration:none"  th:onClick="'javascript:changeuserstatus('+${user.uId}+','+${user.status}+')'"  class="btn btn-sm btn-danger stopBtn"   th:if="${user.status} eq '1'">删除</a>
+							</td>
 						</tr>
 						</tbody>
 						</table>
@@ -159,7 +158,7 @@
 										</tbody>
 									</table>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
 									</div>
 								</form>
 							</div>
@@ -167,12 +166,6 @@
 						</div>
 					</div>
 				</div>
-
-
-
-				<form id="deleteEmpForm" method="post">
-					<input type="hidden" name="_method" value="delete">
-				</form>
 			</div>
 		</div>
 
@@ -187,30 +180,32 @@
 
 		<!-- Icons -->
 		<script type="text/javascript" src="asserts/js/feather.min.js"></script>
-<script>
 
-$("deleteBtn").click(function(){
-$.ajax({
-		type: 'POST',
-		url: '/userStop',
-		data: {
-                'status': $("#status").val(),
+<script type="text/javascript">
+
+function changeuserstatus(Id,status){
+		$.ajax({
+		url:'userStatusChange',
+		type:'POST',
+		data:{
+                "uId": Id,
+                "status":status,
             },
+        success:function(data){
+							    // 显示模态框
+						window.location.reload();
+							},
+							error:function(){
+								alert("数据传输异常");
+							}
 		});
-})
+
+}
+
 
 </script>
-<!--		<script>-->
-<!--			feather.replace()-->
-<!--			debugger-->
-<!--				$(".deleteBtn").click(-->
-<!--				function () {-->
-<!--				//删除当前员工-->
-<!--				$("#deleteEmpForm").attr("action",$(this).attr("del_uri")).submit();-->
-<!--				return false;-->
-<!--				}-->
-<!--				);-->
-<!--		</script>-->
+
+
 <script type="text/javascript">
 <!--    $("#exampleModal").modal("hide");-->
 

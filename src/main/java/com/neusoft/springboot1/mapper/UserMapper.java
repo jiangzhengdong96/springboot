@@ -19,4 +19,7 @@ public interface UserMapper {
     int insertUser(User user);
     @Update("update user set u_name=#{uName}, email=#{email}, tele=#{tele}, address=#{address}, intro=#{intro}, u_pic=#{uPic}, sex=#{sex} where u_id =#{uId}")
     int updateUser(User user);
+
+    @Update("update user set status=#{status} where u_id =#{uId}")
+    int updateUserStatus(@Param("status") Integer status, @Param("uId") Integer uId);
 }

@@ -17,4 +17,8 @@ public class OrderService {
         List<Order> orders = orderMapper.getAllOrder();
         return orders;
     }
+
+    public int updateOrderStatus(Integer status, Integer oId){
+        return orderMapper.updateOrderStatus(status,oId);
+    }
 }

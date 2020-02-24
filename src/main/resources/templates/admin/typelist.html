@@ -10,7 +10,7 @@
 
 		<title>Dashboard Template for Bootstrap</title>
 		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
+		<link href="asserts/css/bootstrap.min.css" th:href="@{asserts/css/bootstrap.min.css}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
 		<link href="asserts/css/dashboard.css" th:href="@{asserts/css/dashboard.css}" rel="stylesheet">
@@ -72,6 +72,7 @@
 									<th>#</th>
 									<th>类型名</th>
 									<th>添加时间</th>
+									<th>更新时间</th>
 									<th>状态</th>
 									<th>操作</th>
 								</tr>
@@ -81,6 +82,7 @@
 							<td th:text="${type.tId}"></td>
 							<td>[[${type.tName}]]</td>
 							<td th:text="${#dates.format(type.addtime, 'yyyy/MM/dd HH:mm:ss')}"></td>
+							<td th:text="${#dates.format(type.updatetime, 'yyyy/MM/dd HH:mm:ss')}"></td>
 							<td class="typestatus">
 							<span class="start" th:if="${type.status} eq '1'">正常</span>
 							<span class="stop" th:if="${type.status} eq '0'">禁用</span>
@@ -95,19 +97,18 @@
 <!--								<button th:attr="del_uri=@{/emp/}+${emp.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>-->
 <!--							</td>-->
 							<td class="manage">
-								<button th:attr="del_uri=@{/type/}+${type.tId}" class="btn btn-sm btn-danger deleteBtn">删除</button>
-<!--								<a class="btn btn-sm btn-primary">修改</a>-->
-<!--								<a style="text-decoration:none" th:onClick="start(this,${user.status})" class="btn btn-sm btn-success startBtn"  href="javascript:;"  th:if="${user.status} eq '0' ">激活</a>-->
-<!--								<a style="text-decoration:none" th:onClick="stop(this,${user.status})"  class="btn btn-sm btn-danger stopBtn"  href="javascript:;"  th:if="${user.status} eq '1'">禁用</a>-->
+								<a style="text-decoration:none"  th:onClick="'javascript:change('+${type.tId}+','+${type.status}+')'" class="btn btn-sm btn-success startBtn"   th:if="${type.status} eq '0' ">激活</a>
+								<a style="text-decoration:none"  th:onClick="'javascript:change('+${type.tId}+','+${type.status}+')'"  class="btn btn-sm btn-danger stopBtn"   th:if="${type.status} eq '1'">删除</a>
+								<a th:href="@{/type/}+${type.tId}" class="btn btn-sm btn-primary"  th:if="${type.status} eq '1' ">修改</a>
 							</td>
 						</tr>
 						</tbody>
 						</table>
 					</div>
 				</main>
-				<form id="deleteTypeForm" method="post">
-					<input type="hidden" name="_method" value="delete">
-				</form>
+<!--				<form id="deleteTypeForm" method="post">-->
+<!--					<input type="hidden" name="_method" value="delete">-->
+<!--				</form>-->
 			</div>
 		</div>
 
@@ -115,72 +116,47 @@
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"></script>
+		<script type="text/javascript" src="asserts/js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="asserts/js/popper.min.js"></script>
 		<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
 
 		<!-- Icons -->
 		<script type="text/javascript" src="asserts/js/feather.min.js"></script>
-		<script>
-			feather.replace()
-			debugger
-				$(".deleteBtn").click(
-				function () {
-				//删除当前员工
-				$("#deleteTypeForm").attr("action",$(this).attr("del_uri")).submit();
-				return false;
-				}
-				);
-		</script>
-
-		<!-- Graphs -->
-		<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
 <!--		<script>-->
-<!--			var ctx = document.getElementById("myChart");-->
-<!--			var myChart = new Chart(ctx, {-->
-<!--				type: 'line',-->
-<!--				data: {-->
-<!--					labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],-->
-<!--					datasets: [{-->
-<!--						data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],-->
-<!--						lineTension: 0,-->
-<!--						backgroundColor: 'transparent',-->
-<!--						borderColor: '#007bff',-->
-<!--						borderWidth: 4,-->
-<!--						pointBackgroundColor: '#007bff'-->
-<!--					}]-->
-<!--				},-->
-<!--				options: {-->
-<!--					scales: {-->
-<!--						yAxes: [{-->
-<!--							ticks: {-->
-<!--								beginAtZero: false-->
-<!--							}-->
-<!--						}]-->
-<!--					},-->
-<!--					legend: {-->
-<!--						display: false,-->
-<!--					}-->
+<!--			feather.replace()-->
+<!--			debugger-->
+<!--				$(".deleteBtn").click(-->
+<!--				function () {-->
+<!--				//删除当前员工-->
+<!--				$("#deleteTypeForm").attr("action",$(this).attr("del_uri")).submit();-->
+<!--				return false;-->
 <!--				}-->
-<!--			});-->
+<!--				);-->
 <!--		</script>-->
-<script>
 
-function stop(obj,status){
 
- layer.confirm('确认要删除吗？',function(index){
+
+<script type="text/javascript">
+
+function change(Id,status){
 		$.ajax({
-		url:'/userStop',
+		url:'typeStatusChange',
 		type:'POST',
 		data:{
-                "status": status,
-            }
+                "tId": Id,
+                "status":status,
+            },
+        success:function(data){
 
-
+							    // 显示模态框
+<!--							    $('#findForm').modal('show');-->
+						window.location.reload();
+							},
+							error:function(){
+								alert("数据传输异常");
+							}
 		});
-		layer.msg('删除成功!',{icon: 6,time:1000});
-        location.reload(true);
-}
+
 }
 
 

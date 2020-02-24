@@ -63,7 +63,8 @@
 					<form th:action="@{/typesave}" method="post">
 						<div class="form-group">
 							<label>商品类型</label>
-							<input name="tName" type="text"  class="form-control" >
+							<input name="tName" type="text" width="200px" class="form-control" >
+							<p style="color:red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
 						</div>
 <!--							<input  name="addtime"  type="datetime-local" class="form-control date-picker">-->
 
@@ -94,48 +95,18 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{asserts/js/jquery-3.2.1.slim.min.js}"></script>
-		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{asserts/js/popper.min.js}"></script>
-		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{asserts/js/bootstrap.min.js}"></script>
+			<script type="text/javascript" src="asserts/js/jquery-3.2.1.min.js"></script>
+			<script type="text/javascript" src="asserts/js/popper.min.js"></script>
+			<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
 
-		<!-- Icons -->
-		<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{asserts/js/feather.min.js}"></script>
+			<!-- Icons -->
+			<script type="text/javascript" src="asserts/js/feather.min.js"></script>
 		<script>
 			feather.replace()
 		</script>
 
 
-		<!-- Graphs -->
-		<script type="text/javascript" src="asserts/js/Chart.min.js" th:src="@{asserts/js/Chart.min.js}"></script>
-		<script>
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, {
-				type: 'line',
-				data: {
-					labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-					datasets: [{
-						data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-						lineTension: 0,
-						backgroundColor: 'transparent',
-						borderColor: '#007bff',
-						borderWidth: 4,
-						pointBackgroundColor: '#007bff'
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: false
-							}
-						}]
-					},
-					legend: {
-						display: false,
-					}
-				}
-			});
-		</script>
+
 
 	</body>
 

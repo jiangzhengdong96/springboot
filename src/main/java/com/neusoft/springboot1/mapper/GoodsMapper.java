@@ -1,8 +1,9 @@
 package com.neusoft.springboot1.mapper;
 
 import com.neusoft.springboot1.entity.Goods;
-import com.neusoft.springboot1.entity.User;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -14,5 +15,8 @@ public interface GoodsMapper {
             " on goods.u_id=user.u_id left join type on goods.t_id=type.t_id")
     List<Goods> getAllGoods();
     //是否使用自动生成的组件，以及那个属性是用来封装组件的
+
+    @Update("update goods set g_status=#{gStatus} where g_id =#{gId}")
+    int updateGoodStatus(@Param("gStatus") Integer gStatus, @Param("gId") Integer gId);
 
 }

@@ -16,4 +16,7 @@ public class CommentService {
         List<Comment> comments = commentMapper.getAllComment();
         return comments;
     }
+    public int updateCommentStatus(Integer status,Integer cId){
+        return commentMapper.updateCommentStatus(status,cId);
+    }
 }

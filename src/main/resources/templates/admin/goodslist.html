@@ -10,7 +10,7 @@
 
 		<title>Dashboard Template for Bootstrap</title>
 		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}" rel="stylesheet">
+		<link href="asserts/css/bootstrap.min.css" th:href="@{asserts/css/bootstrap.min.css}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
 		<link href="asserts/css/dashboard.css" th:href="@{asserts/css/dashboard.css}" rel="stylesheet">
@@ -107,8 +107,8 @@
 <!--								<button th:attr="del_uri=@{/emp/}+${emp.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>-->
 <!--							</td>-->
 							<td class="manage">
-								<button type="button" class="btn btn-sm btn-danger deleteBtn" >删除</button>
-<!--								<a class="btn btn-sm btn-primary">修改</a>-->
+								<a style="text-decoration:none"  th:onClick="'javascript:changegoodstatus('+${goods.gId}+','+${goods.gStatus}+')'" class="btn btn-sm btn-success startBtn"   th:if="${goods.gStatus} eq '0' ">激活</a>
+								<a style="text-decoration:none"  th:onClick="'javascript:changegoodstatus('+${goods.gId}+','+${goods.gStatus}+')'"  class="btn btn-sm btn-danger stopBtn"   th:if="${goods.gStatus} eq '1'">删除</a>
 								</td>
 
 						</tr>
@@ -116,9 +116,6 @@
 						</table>
 					</div>
 				</main>
-				<form id="deleteEmpForm" method="post">
-					<input type="hidden" name="_method" value="delete">
-				</form>
 			</div>
 		</div>
 
@@ -126,39 +123,38 @@
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"></script>
+		<script type="text/javascript" src="asserts/js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="asserts/js/popper.min.js"></script>
 		<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
 
 
 		<!-- Icons -->
 		<script type="text/javascript" src="asserts/js/feather.min.js"></script>
-<script>
+<script type="text/javascript">
 
-$("deleteBtn").click(function(){
-$.ajax({
-		type: 'POST',
-		url: '/userStop',
-		data: {
-                'status': $("#status").val(),
+function changegoodstatus(Id,status){
+		$.ajax({
+		url:'goodsStatusChange',
+		type:'POST',
+		data:{
+                "gId": Id,
+                "gStatus":status,
             },
-		});
-})
+        success:function(data){
 
+							    // 显示模态框
+<!--							    $('#findForm').modal('show');-->
+						window.location.reload();
+							},
+							error:function(){
+								alert("数据传输异常");
+							}
+		});
+
+}
 
 
 </script>
-<!--		<script>-->
-<!--			feather.replace()-->
-<!--			debugger-->
-<!--				$(".deleteBtn").click(-->
-<!--				function () {-->
-<!--				//删除当前员工-->
-<!--				$("#deleteEmpForm").attr("action",$(this).attr("del_uri")).submit();-->
-<!--				return false;-->
-<!--				}-->
-<!--				);-->
-<!--		</script>-->
 
 
 	</body>
