@@ -86,7 +86,9 @@
 						<tr th:each="goods:${goodslist}">
 							<td th:text="${goods.gId}"></td>
 							<td>[[${goods.gName}]]</td>
-							<td th:text="${goods.gPic}"></td>
+							<td>
+								<img  height="50px"  th:src="@{'asserts/img/uploads/'+${goods.gPic}}">
+							</td>
 							<td th:text="${goods.gIntro}"></td>
 							<td th:text="${goods.tName}"></td>
 							<td th:text="${goods.gPrice}"></td>

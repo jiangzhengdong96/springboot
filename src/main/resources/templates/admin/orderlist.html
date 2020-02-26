@@ -136,7 +136,7 @@
 <!--							<td th:text="${#dates.format(order.addtime, 'yyyy/MM/dd HH:mm:ss')}"></td>-->
 							<td class="orderstatus">
 							<span class="label label-success radius" th:if="${order.status} eq '1'">正常</span>
-							<span class="label label-defaunt radius" th:if="${order.status} eq '0'">已删除</span>
+							<span class="label label-defaunt radius" th:if="${order.status} eq '0'">禁用</span>
 							</td>
 
 <!--							<td th:text="${emp.gender}=='1'?'男':'女'"></td>-->
@@ -243,6 +243,8 @@
 									var shopcarlist = data;
 									for (let shopIndex in shopcarlist) {
 									var status = "";
+									var sstatus = shopcarlist[shopIndex].status;
+									var ssId = shopcarlist[shopIndex].id;
 									var addtime = shopcarlist[shopIndex].addtime.replace('T',' ');
 									var addtime1 = addtime.substr(0,19);
 									var updatetime = shopcarlist[shopIndex].updatetime.replace('T',' ');
@@ -250,17 +252,30 @@
 									if(shopcarlist[shopIndex].status==1){
 									status="正常";
 									}else{
-									status="被删除";
+									status="禁用";
 									}
-     								Str += '<tr><td>' + shopcarlist[shopIndex].id + '</td>'
+									if(shopcarlist[shopIndex].status==1){
+									Str += '<tr><td>' + shopcarlist[shopIndex].id + '</td>'
      									+'<td>' + shopcarlist[shopIndex].gName + '</td>'
      									+'<td>' + shopcarlist[shopIndex].gPrice + '</td>'
      									+'<td>' + shopcarlist[shopIndex].num + '</td>'
      									+'<td >' + addtime1 + '</td>'
      									+'<td>' + updatetime + '</td>'
      									+'<td>' + status + '</td>'
-     									+'<td>' +'<button type="button" class="btn btn-sm btn-danger deleteBtn" >'+'删除'+'</button>'+'</td></tr>'
+     									+'<td>' +'<a style="text-decoration:none" onClick=\"changeordergoodstatus('+ssId+','+sstatus+')\" class="btn btn-sm btn-danger stopBtn">'+'删除'+'</a>'+'</td></tr>'
      									;
+									}else{
+									Str += '<tr><td>' + shopcarlist[shopIndex].id + '</td>'
+     									+'<td>' + shopcarlist[shopIndex].gName + '</td>'
+     									+'<td>' + shopcarlist[shopIndex].gPrice + '</td>'
+     									+'<td>' + shopcarlist[shopIndex].num + '</td>'
+     									+'<td >' + addtime1 + '</td>'
+     									+'<td>' + updatetime + '</td>'
+     									+'<td>' + status + '</td>'
+     									+'<td>' +'<a style="text-decoration:none" onClick=\"changeordergoodstatus('+ssId+','+sstatus+')\" class="btn btn-sm btn-success startBtn">'+'激活'+'</a>'+'</td></tr>'
+     									;
+									}
+
   										};
 									document.getElementById("shopcarlist").innerHTML = Str;
 							    // 显示模态框
@@ -288,6 +303,33 @@ function changeorderstatus(Id,status){
 		type:'POST',
 		data:{
                 "oId": Id,
+                "status":status,
+            },
+        success:function(data){
+
+							    // 显示模态框
+<!--							    $('#findForm').modal('show');-->
+						window.location.reload();
+							},
+							error:function(){
+								alert("数据传输异常");
+							}
+		});
+
+}
+
+
+</script>
+
+
+<script type="text/javascript">
+
+function changeordergoodstatus(Id,status){
+		$.ajax({
+		url:'ordergoodStatusChange',
+		type:'POST',
+		data:{
+                "id": Id,
                 "status":status,
             },
         success:function(data){

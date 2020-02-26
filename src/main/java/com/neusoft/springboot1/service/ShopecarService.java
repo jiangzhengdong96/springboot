@@ -22,4 +22,8 @@ public class ShopecarService {
         return shopcars;
     }
 
+    public int updateShopcarStatus(Integer status, Integer sId){
+        return shopecarMapper.updateShopcarStatus(status,sId);
+    }
+
 }

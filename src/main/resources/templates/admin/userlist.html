@@ -87,7 +87,9 @@
 						<tr th:each="user:${userlist}">
 							<td th:text="${user.uId}"></td>
 							<td>[[${user.uName}]]</td>
-							<td th:text="${user.uPic}"></td>
+							<td>
+							<img  height="50px"  th:src="@{'asserts/img/uploads/'+${user.uPic}}">
+							</td>
 							<td th:if="${user.sex} eq '1'">男</td>
 							<td th:if="${user.sex} eq '0'">女</td>
 							<td th:text="${user.email}"></td>
@@ -192,12 +194,37 @@ function changeuserstatus(Id,status){
                 "status":status,
             },
         success:function(data){
-							    // 显示模态框
+
 						window.location.reload();
 							},
 							error:function(){
 								alert("数据传输异常");
 							}
+		});
+
+}
+
+
+</script>
+
+
+<script type="text/javascript">
+
+function changeshopercarstatus(Id,status){
+		$.ajax({
+		url:'shopcarStatusChange',
+		type:'POST',
+		data:{
+                "sId": Id,
+                "status":status,
+            },
+        success:function(data){
+		window.location.reload();
+		},
+		error:function(){
+			alert("数据传输异常");
+
+		}
 		});
 
 }
@@ -223,6 +250,9 @@ function changeuserstatus(Id,status){
 									var shopcarlist = data;
 									for (let shopIndex in shopcarlist) {
 									var status = "";
+									var sstatus = shopcarlist[shopIndex].status;
+									var ssId = shopcarlist[shopIndex].sId;
+									var id = "shopcarid"+ssId;
 									var addtime = shopcarlist[shopIndex].addtime.replace('T',' ');
 									var addtime1 = addtime.substr(0,19);
 									var updatetime = shopcarlist[shopIndex].updatetime.replace('T',' ');
@@ -230,20 +260,36 @@ function changeuserstatus(Id,status){
 									if(shopcarlist[shopIndex].status==1){
 									status="正常";
 									}else{
-									status="被删除";
+									status="禁用";
 									}
-     								Str += '<tr><td>' + shopcarlist[shopIndex].sId + '</td>'
+									if(shopcarlist[shopIndex].status==1){
+									Str += '<tr><td>' + shopcarlist[shopIndex].sId + '</td>'
      									+'<td>' + shopcarlist[shopIndex].gName + '</td>'
-     									+'<td>' + shopcarlist[shopIndex].gPic + '</td>'
+     									+'<td>' + '<img  height="50px"src="asserts/img/uploads/'+shopcarlist[shopIndex].gPic+'">'+ '</td>'
      									+'<td>' + shopcarlist[shopIndex].gPrice + '</td>'
      									+'<td>' + shopcarlist[shopIndex].number + '</td>'
      									+'<td >' + addtime1 + '</td>'
      									+'<td>' + updatetime + '</td>'
      									+'<td>' + status + '</td>'
-     									+'<td>' +'<button type="button" class="btn btn-sm btn-danger deleteBtn" >'+'删除'+'</button>'+'</td></tr>'
+     									+'<td>' +'<a style="text-decoration:none" onClick=\"changeshopercarstatus('+ssId+','+sstatus+')\" class="btn btn-sm btn-danger stopBtn">'+'删除'+'</a>'+'</td></tr>'
      									;
+									}else{
+									Str += '<tr><td>' + shopcarlist[shopIndex].sId + '</td>'
+     									+'<td>' + shopcarlist[shopIndex].gName + '</td>'
+     									+'<td>' + '<img  height="50px"src="asserts/img/uploads/'+shopcarlist[shopIndex].gPic+'">'+ '</td>'
+     									+'<td>' + shopcarlist[shopIndex].gPrice + '</td>'
+     									+'<td>' + shopcarlist[shopIndex].number + '</td>'
+     									+'<td >' + addtime1 + '</td>'
+     									+'<td>' + updatetime + '</td>'
+     									+'<td>' + status + '</td>'
+     									+'<td>' +'<a style="text-decoration:none"  onClick=\"changeshopercarstatus('+ssId+','+sstatus+')\" class="btn btn-sm btn-success startBtn">'+'激活'+'</a>'+'</td></tr>'
+     									;
+									}
+
   										};
 									document.getElementById("shopcarlist").innerHTML = Str;
+
+
 							    // 显示模态框
 							    $('#exampleModal').modal('show');
 

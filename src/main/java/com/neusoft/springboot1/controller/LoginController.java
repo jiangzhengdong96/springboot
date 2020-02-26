@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -37,14 +39,14 @@ public class LoginController {
         }
     }
 
-//    @RequestMapping(value = "/logout")
-//    public String logout(HttpServletRequest request){
-//        HttpSession session = request.getSession();
-//        if(null != session){
-//           Manager manager = (Manager) session.getAttribute("loginUser");
-//            session.invalidate();
-//        }
-//        return "login";
-//    }
+    @RequestMapping(value = "/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(null != session){
+           String username = (String) session.getAttribute("loginUser");
+            session.invalidate();
+        }
+        return "login";
+    }
 
 }

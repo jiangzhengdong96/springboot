@@ -16,4 +16,8 @@ public class OrderGoodsService {
         List<OrderGoods> orderGoods = orderGoodsMapper.getAllOrderGoodsById(oId);
         return orderGoods;
     }
+
+    public int updateOrderGoodsStatus(Integer status, Integer id){
+        return orderGoodsMapper.updateOrderGoodsStatus(status,id);
+    }
 }

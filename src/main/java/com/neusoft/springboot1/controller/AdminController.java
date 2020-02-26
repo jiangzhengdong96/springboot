@@ -201,6 +201,16 @@ public class AdminController {
         return shopcars;
     }
 
+    @RequestMapping(value = "/shopcarStatusChange",method=RequestMethod.POST)
+    @ResponseBody
+    public void updateShopcarStatus(@RequestParam("sId") Integer sId,@RequestParam("status") Integer status){
+        if(status==1){
+            shopecarService.updateShopcarStatus(0,sId);
+        }else if (status==0){
+            shopecarService.updateShopcarStatus(1,sId);
+        }
+
+    }
 
 
     ///////////////////////ordergoods
@@ -215,6 +225,16 @@ public class AdminController {
 //        System.out.println(",,,,,,,,,,,,,,,,,,,,,,,,,,");
 //
 //    }
+@RequestMapping(value = "/ordergoodStatusChange",method=RequestMethod.POST)
+@ResponseBody
+public void updateOrderGoodStatus(@RequestParam("id") Integer id,@RequestParam("status") Integer status){
+    if(status==1){
+        orderGoodsService.updateOrderGoodsStatus(0,id);
+    }else if (status==0){
+        orderGoodsService.updateOrderGoodsStatus(1,id);
+    }
+
+}
 
     //////////////////////////////Collect
     @GetMapping("/collect")
