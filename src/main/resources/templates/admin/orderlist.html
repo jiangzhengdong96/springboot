@@ -157,6 +157,31 @@
 						</tbody>
 						</table>
 					</div>
+					<div class="modal-footer no-margin-top" style="padding-top:20px">
+						<ul class="pagination " style="margin:0 auto">
+							<li th:if="${pageInfo.hasPreviousPage}" >
+								<a th:href="@{'/order?pageNum=1'}" class="btn btn-sm btn-info startBtn1">首页</a>
+							</li>&nbsp;&nbsp;
+							<li class="prev" th:if="${pageInfo.hasPreviousPage}">
+								<a th:href="@{'/order?pageNum='+${pageInfo.prePage}}" class="btn btn-sm btn-info startBtn1">
+									上一页
+								</a>
+							</li>&nbsp;&nbsp;
+							<!--遍历条数-->
+							<li th:each="nav:${pageInfo.navigatepageNums}">
+								<a th:href="@{'/order?pageNum='+${nav}}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}" class="btn btn-sm btn-info startBtn1"></a>
+								<span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" class="btn btn-sm btn-warning startBtn1"></span>&nbsp;&nbsp;
+							</li>&nbsp;&nbsp;
+							<li class="next" th:if="${pageInfo.hasNextPage}">
+								<a th:href="@{'/order?pageNum='+${pageInfo.nextPage}}" class="btn btn-sm btn-info startBtn1">
+									下一页
+								</a>
+							</li>&nbsp;&nbsp;
+							<li class="next" th:if="${pageInfo.hasNextPage}">
+								<a th:href="@{'/order?pageNum='+${pageInfo.pages}}" class="btn btn-sm btn-info startBtn1">尾页</a>
+							</li>
+						</ul>
+					</div>
 				</main>
 
 

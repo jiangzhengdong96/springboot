@@ -34,3 +34,8 @@ spring:
 #      ddl-auto: update
 #    show-sql: true
 #不需要重复的创建浪费资源
+  pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql

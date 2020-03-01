@@ -1,7 +1,9 @@
 package com.neusoft.springboot1.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.neusoft.springboot1.entity.*;
-import com.neusoft.springboot1.service.*;
+import com.neusoft.springboot1.service.serviceImpl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,27 +16,40 @@ import java.util.List;
 @Controller
 public class AdminController {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
     @Autowired
-    private TypeService typeService;
+    private TypeServiceImpl typeService;
     @Autowired
-    private GoodsService goodsService;
+    private GoodsServiceImpl goodsService;
     @Autowired
-    private OrderService orderService;
+    private OrderServiceImpl orderService;
     @Autowired
-    private CommentService commentService;
+    private CommentServiceImpl commentService;
     @Autowired
-    private ShopecarService shopecarService;
+    private ShopcarServiceImpl shopecarService;
     @Autowired
-    private OrderGoodsService orderGoodsService;
+    private OrderGoodsServiceImpl orderGoodsService;
     @Autowired
-    private CollectService collectService;
+    private CollectServiceImpl collectService;
     ////////////////////////////////User
     @GetMapping("/user")
-    public String getAllUser(Model model){
-     List<User> users = userService.getAllUser();
-     model.addAttribute("userlist",users);
-     return "admin/userlist";
+    public String getAllUser(Model model,
+                             @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
+                             @RequestParam(defaultValue="6",value="pageSize")Integer pageSize){
+        if(pageNum==null || pageNum<=0){
+            pageNum = 1;
+        }
+        //设置默认每页显示的数据数
+        if(pageSize == null){
+            pageSize = 1;
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> users = userService.getAllUser();
+        PageInfo<User> pageInfo = new PageInfo<User>(users,pageSize);
+        //4.使用model传参数回前端
+        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("userlist",users);
+        return "admin/userlist";
     }
 
     @RequestMapping(value = "/userStatusChange",method=RequestMethod.POST)
@@ -51,8 +66,21 @@ public class AdminController {
 
     ///////////////////////////////////////////////type
     @GetMapping("/type")
-    public String getAllType(Model model){
+    public String getAllType(Model model,
+                             @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
+                             @RequestParam(defaultValue="10",value="pageSize")Integer pageSize){
+        if(pageNum==null || pageNum<=0){
+            pageNum = 1;
+        }
+        //设置默认每页显示的数据数
+        if(pageSize == null){
+            pageSize = 1;
+        }
+        PageHelper.startPage(pageNum, pageSize);
         List<Type> types = typeService.getAllType();
+        PageInfo<Type> pageInfo = new PageInfo<Type>(types,pageSize);
+        //4.使用model传参数回前端
+        model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("typelist",types);
         return "admin/typelist";
     }
@@ -67,12 +95,6 @@ public class AdminController {
         }
 
     }
-
-//    @DeleteMapping("/type/{tId}")
-//    public String deleteType(@PathVariable("tId") Integer tId){
-//       typeService.deleteTypeById(tId);
-//        return "redirect:/type";
-//    }
 
     @RequestMapping("/type/{tId}")
     public String edittype(@PathVariable("tId") Integer tId,  ModelMap model){
@@ -122,8 +144,21 @@ public class AdminController {
 
     //////////////////////////goods
     @GetMapping("/goods")
-    public String getAllGoods(Model model){
+    public String getAllGoods(Model model,
+                              @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
+                              @RequestParam(defaultValue="6",value="pageSize")Integer pageSize){
+        if(pageNum==null || pageNum<=0){
+            pageNum = 1;
+        }
+        //设置默认每页显示的数据数
+        if(pageSize == null){
+            pageSize = 1;
+        }
+        PageHelper.startPage(pageNum, pageSize);
         List<Goods> goods = goodsService.getAllGoods();
+        PageInfo<Goods> pageInfo = new PageInfo<Goods>(goods,pageSize);
+        //4.使用model传参数回前端
+        model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("goodslist",goods);
         return "admin/goodslist";
     }
@@ -145,8 +180,21 @@ public class AdminController {
 
 ////////////////////////////////////order
     @GetMapping("/order")
-    public String getAllOrder(Model model){
+    public String getAllOrder(Model model,
+                              @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
+                              @RequestParam(defaultValue="10",value="pageSize")Integer pageSize){
+        if(pageNum==null || pageNum<=0){
+            pageNum = 1;
+        }
+        //设置默认每页显示的数据数
+        if(pageSize == null){
+            pageSize = 1;
+        }
+        PageHelper.startPage(pageNum, pageSize);
         List<Order> orders = orderService.getAllOrder();
+        PageInfo<Order> pageInfo = new PageInfo<Order>(orders,pageSize);
+        //4.使用model传参数回前端
+        model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("orderlist",orders);
         return "admin/orderlist";
     }
@@ -165,8 +213,21 @@ public class AdminController {
 
     //////////////////////////////comment
     @GetMapping("/comment")
-    public String getAllComment(Model model){
+    public String getAllComment(Model model,
+                                @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
+                                @RequestParam(defaultValue="10",value="pageSize")Integer pageSize){
+        if(pageNum==null || pageNum<=0){
+            pageNum = 1;
+        }
+        //设置默认每页显示的数据数
+        if(pageSize == null){
+            pageSize = 1;
+        }
+        PageHelper.startPage(pageNum, pageSize);
         List<Comment> comments = commentService.getAllComment();
+        PageInfo<Comment> pageInfo = new PageInfo<Comment>(comments,pageSize);
+        //4.使用model传参数回前端
+        model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("commentlist",comments);
         return "admin/commentlist";
     }
@@ -189,7 +250,18 @@ public class AdminController {
     ///////////////////////////////////shopcar
     @GetMapping("/shopcar")
     public String getAllShopcar(Model model){
+//        if(pageNum==null || pageNum<=0){
+//            pageNum = 1;
+//        }
+//        //设置默认每页显示的数据数
+//        if(pageSize == null){
+//            pageSize = 1;
+//        }
+//        PageHelper.startPage(pageNum, pageSize);
         List<Shopcar> shopcars = shopecarService.getAllShopcar();
+//        PageInfo<Shopcar> pageInfo = new PageInfo<Shopcar>(shopcars,pageSize);
+//        //4.使用model传参数回前端
+//        model.addAttribute("pageInfo1",pageInfo);
         model.addAttribute("shopcarlist",shopcars);
         return "admin/shopcarlist";
     }
@@ -238,8 +310,21 @@ public void updateOrderGoodStatus(@RequestParam("id") Integer id,@RequestParam("
 
     //////////////////////////////Collect
     @GetMapping("/collect")
-    public String getAllCollect(Model model){
+    public String getAllCollect(Model model,
+                                @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
+                                @RequestParam(defaultValue="10",value="pageSize")Integer pageSize){
+        if(pageNum==null || pageNum<=0){
+            pageNum = 1;
+        }
+        //设置默认每页显示的数据数
+        if(pageSize == null){
+            pageSize = 1;
+        }
+        PageHelper.startPage(pageNum, pageSize);
         List<Collect> collects = collectService.getAllCollect();
+        PageInfo<Collect> pageInfo = new PageInfo<Collect>(collects,pageSize);
+        //4.使用model传参数回前端
+        model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("collectlist",collects);
         return "admin/collectlist";
     }

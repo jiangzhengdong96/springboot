@@ -63,7 +63,7 @@
 					<form th:action="@{/typesave}" method="post">
 						<div class="form-group">
 							<label>商品类型</label>
-							<input name="tName" type="text" width="200px" class="form-control" >
+							<input name="tName" type="text" class="form-control" style="width:30%">
 							<p style="color:red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
 						</div>
 <!--							<input  name="addtime"  type="datetime-local" class="form-control date-picker">-->

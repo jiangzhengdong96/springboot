@@ -1,7 +1,7 @@
 package com.neusoft.springboot1.controller;
 
 import com.neusoft.springboot1.entity.Manager;
-import com.neusoft.springboot1.service.ManagerService;
+import com.neusoft.springboot1.service.serviceImpl.ManagerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -16,7 +16,7 @@ import java.util.Map;
 @Controller
 public class LoginController {
     @Autowired
-    private ManagerService managerService;
+    private ManagerServiceImpl managerService;
     @PostMapping(value = "/login")
 //    @RequestMapping(value ="user/login",method = RequestMethod.POST)
     public String login(@RequestParam("username") String username,
