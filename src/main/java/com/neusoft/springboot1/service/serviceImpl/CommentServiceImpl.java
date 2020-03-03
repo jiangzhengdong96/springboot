@@ -24,5 +24,10 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.updateCommentStatus(status,cId);
     }
 
+    @Override
+    public List<Comment> getAllCommentsById(Integer gId) {
+        return commentMapper.getAllCommentsById(gId);
+    }
+
 
 }

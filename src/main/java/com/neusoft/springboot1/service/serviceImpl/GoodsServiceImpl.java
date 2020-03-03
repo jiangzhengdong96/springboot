@@ -19,8 +19,19 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public List<Goods> getAllGoods1() {
+        List<Goods> goods = goodsMapper.getAllGoods1();
+        return goods;
+    }
+
+    @Override
     public int updateGoodStatus(Integer gStatus, Integer gId) {
         return goodsMapper.updateGoodStatus(gStatus,gId);
+    }
+
+    @Override
+    public Goods getGoodsInfoById(Integer gId) {
+        return goodsMapper.getGoodsInfoById(gId);
     }
 
 

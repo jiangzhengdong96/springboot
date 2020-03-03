@@ -52,7 +52,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 //                静态资源；css；js配置不要拦截js css img 一些静态文件就可以了没拦截，我都注释掉了需要拦截 需要配置
 //                SpringBoot已经做好了静态资源映射了
 //                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-//                        .excludePathPatterns("/index.html","/","/login","/asserts/**","/webjars/**","/Api/**");
+//                        .excludePathPatterns("/index.html","/","/login","/asserts/**","/webjars/**","/UserIndex/**");
             }
         };
         return adapter;
