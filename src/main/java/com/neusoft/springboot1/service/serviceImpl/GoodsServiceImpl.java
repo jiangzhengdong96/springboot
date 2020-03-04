@@ -34,5 +34,15 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsMapper.getGoodsInfoById(gId);
     }
 
+    @Override
+    public List<Goods> getGoodsBytId(Integer tId) {
+        return goodsMapper.getGoodsBytId(tId);
+    }
+
+    @Override
+    public List<Goods> getGoodsBySearch(String search) {
+        return goodsMapper.getGoodsBySearch(search);
+    }
+
 
 }

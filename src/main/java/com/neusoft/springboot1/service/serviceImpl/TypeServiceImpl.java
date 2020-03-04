@@ -20,8 +20,8 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<Type> getAllTypePage() {
-        return null;
+    public List<Type> getAllType1() {
+        return typeMapper.getAllType1();
     }
 
     @Override

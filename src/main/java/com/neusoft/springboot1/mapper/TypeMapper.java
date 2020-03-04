@@ -10,8 +10,8 @@ public interface TypeMapper {
 
     @Select("select * from type")
     List<Type> getAllType();
-    @Select("select * from type")
-    List<Type> getAllTypePage();
+    @Select("select * from type where type.status = 1")
+    List<Type> getAllType1();
     @Select("select * from type where t_name=#{tName}")
     List<Type> getTypeByName(String tName);
     @Select("select * from type where t_id=#{tId}")

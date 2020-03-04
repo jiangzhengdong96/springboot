@@ -18,6 +18,14 @@ public interface GoodsMapper {
             "goods.g_price,user.u_name,type.t_name from goods left join user" +
             " on goods.u_id=user.u_id left join type on goods.t_id=type.t_id where goods.g_status = 1")
     List<Goods> getAllGoods1();
+    @Select("select goods.g_id,goods.g_name,goods.g_intro,goods.g_num,goods.g_pic,goods.g_status,goods.addtime," +
+            "goods.g_price,user.u_name,type.t_name from goods left join user" +
+            " on goods.u_id=user.u_id left join type on goods.t_id=type.t_id where goods.g_status = 1 and goods.t_id = #{tId}")
+    List<Goods> getGoodsBytId(Integer tId);
+    @Select("select goods.g_id,goods.g_name,goods.g_intro,goods.g_num,goods.g_pic,goods.g_status,goods.addtime," +
+            "goods.g_price,user.u_name,type.t_name from goods left join user" +
+            " on goods.u_id=user.u_id left join type on goods.t_id=type.t_id where goods.g_status = 1 and goods.g_name like '%${search}%'")
+    List<Goods> getGoodsBySearch(String search);
     //是否使用自动生成的组件，以及那个属性是用来封装组件的
     @Select("select goods.g_id,goods.g_name,goods.g_intro,goods.g_num,goods.g_pic,goods.g_status,goods.addtime," +
             "goods.g_price,user.u_name,type.t_name from goods left join user" +
