@@ -1,7 +1,10 @@
+jasypt:
+  encryptor:
+    password: test
 spring:
   datasource:
     username: root
-    password:
+    password: ENC(VzV5OF+ZNdt57S18ies1HA==)
     url: jdbc:mysql://localhost:3306/bishe?zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -39,4 +42,15 @@ spring:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+
+
+  mail:
+      host: smtp.qq.com    #邮箱服务器地址
+      username: 1712359278@qq.com   #邮箱账号
+      password: fwfpirtjjniyjajf            #邮箱密码
+      default-encoding: utf-8    #默认编码
+  #邮件发件人
+mail:
+  fromMail:
+    addr: 1712359278@qq.com
 

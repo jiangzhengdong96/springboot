@@ -7,7 +7,6 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -52,7 +51,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 //                静态资源；css；js配置不要拦截js css img 一些静态文件就可以了没拦截，我都注释掉了需要拦截 需要配置
 //                SpringBoot已经做好了静态资源映射了
 //                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-//                        .excludePathPatterns("/index.html","/","/login","/asserts/**","/webjars/**","/UserIndex/**");
+//                        .excludePathPatterns("/index.html","/","/login","/asserts/**","/webjars/**","/pageone");
             }
         };
         return adapter;
@@ -63,15 +62,15 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
     }
 
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET","HEAD","POST","PUT","DELETE","OPTIONS")
-                .allowCredentials(true)
-                .maxAge(3600)
-                .allowedHeaders("*");
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins("*")
+//                .allowedMethods("GET","HEAD","POST","PUT","DELETE","OPTIONS")
+//                .allowCredentials(true)
+//                .maxAge(3600)
+//                .allowedHeaders("*");
+//    }
 
     @Bean
     public PageHelper getPageHelper() {

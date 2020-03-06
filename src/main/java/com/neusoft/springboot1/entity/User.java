@@ -1,7 +1,6 @@
 package com.neusoft.springboot1.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class User {
     private Integer uId;
@@ -102,5 +101,22 @@ public class User {
 
     public void setAddtime(Timestamp addtime) {
         this.addtime = addtime;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uId=" + uId +
+                ", uName='" + uName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", tele='" + tele + '\'' +
+                ", address='" + address + '\'' +
+                ", intro='" + intro + '\'' +
+                ", status=" + status +
+                ", uPic='" + uPic + '\'' +
+                ", sex=" + sex +
+                ", addtime=" + addtime +
+                '}';
     }
 }

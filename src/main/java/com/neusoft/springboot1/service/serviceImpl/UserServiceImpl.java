@@ -32,17 +32,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insertUser(User user) {
-        return 0;
+        return userMapper.insertUser(user);
     }
 
     @Override
     public int updateUser(User user) {
-        return 0;
+        return userMapper.updateUser(user);
     }
 
     @Override
     public int updateUserStatus(Integer status, Integer uId) {
         return userMapper.updateUserStatus(status,uId);
+    }
+
+    @Override
+    public List<User> getUserByuName(String uName) {
+        return userMapper.getUserByuName(uName);
     }
 
 

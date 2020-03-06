@@ -1,7 +1,7 @@
 package com.neusoft.springboot1.controller;
 
 import com.neusoft.springboot1.entity.Manager;
-import com.neusoft.springboot1.service.serviceImpl.ManagerServiceImpl;
+import com.neusoft.springboot1.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -14,9 +14,10 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
-public class LoginController {
+public class AdminLoginController {
     @Autowired
-    private ManagerServiceImpl managerService;
+    private ManagerService managerService;
+
     @PostMapping(value = "/login")
 //    @RequestMapping(value ="user/login",method = RequestMethod.POST)
     public String login(@RequestParam("username") String username,
@@ -42,7 +43,7 @@ public class LoginController {
     @RequestMapping(value = "/logout")
     public String logout(HttpServletRequest request){
         HttpSession session = request.getSession();
-        if(null != session){
+        if(null != session.getAttribute("loginUser")){
            String username = (String) session.getAttribute("loginUser");
             session.invalidate();
         }

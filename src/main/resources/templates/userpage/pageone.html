@@ -37,7 +37,7 @@
   	  		<a class="nav-link dropdown-toggle" style="text-decoration: none; color: forestgreen" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Dropdown</a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown01">
       <li role="presentation">
-      	<a class="dropdown-item" href="#">个人信息</a>
+        <a id="myModal" data-toggle="modal" data-target="#exampleModal">立即登录</a>
       </li>
        <li role="presentation" class="divider"></li>
       <li role="presentation">
@@ -135,6 +135,51 @@
       </div>
     </div>
   </div>
+
+
+<!--  登录模态框-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog  "  role="document" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="font-size:15px" id="exampleModalLabel">用户登录</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="table" th:action="@{/}" method="post" >
+
+              <div class="form-group" style="margin-left:70px">
+                <label style="float:left;font-size:15px">用户名:&emsp;&emsp;</label>
+                <input type="text" style="width:220px;height:30px;" class="form-control" id="username" placeholder="请输入您的用户名">
+              </div>
+              <div class="form-group" style="margin-left:70px">
+                <label style="float:left;font-size:15px">密&emsp;码:&emsp;&emsp;</label>
+                <input type="password" style="width:220px;height:30px;" class="form-control" id="password" placeholder="请输入您的密码">
+              </div>
+              <div class="c3-1" style="margin-left:50px">
+                <center>
+                  <button id="login" style="margin-left:-80px; width:150px" class="btn btn-primary">登&emsp;&emsp;录</button>
+                </center>
+                <br />
+                <center style="">
+                <a id="searchPwd"   >忘记密码</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <a id="toRegister" th:href="@{/signin}" >立即注册</a>
+                </center>
+              </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <footer class="container">
