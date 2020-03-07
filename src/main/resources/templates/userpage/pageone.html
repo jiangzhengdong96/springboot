@@ -33,30 +33,51 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  	  	<div class="dropdown">
-  	  		<a class="nav-link dropdown-toggle" style="text-decoration: none; color: forestgreen" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Dropdown</a>
+  	  	<div class="dropdown" th:if="${not #strings.isEmpty(session.uName)}">
+  	  		<a class="nav-link dropdown-toggle" style="text-decoration: none; color: forestgreen" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">[[${session.uName}]]</a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown01">
-      <li role="presentation">
-        <a id="myModal" data-toggle="modal" data-target="#exampleModal">立即登录</a>
-      </li>
-       <li role="presentation" class="divider"></li>
+<!--       <li role="presentation" class="divider"></li>-->
       <li role="presentation">
       	<a class="dropdown-item" href="#">修改密码</a>
       </li>
-       <li role="presentation" class="divider"></li>
-      <li role="presentation">
-      	<a class="dropdown-item" href="#">购物车</a>
+
+        <li role="presentation">
+        <a class="dropdown-item" href="#">个人信息</a>
       </li>
-      <li role="presentation" class="divider"></li>
+<!--       <li role="presentation" class="divider"></li>-->
+      <li role="presentation">
+        <a class="dropdown-item" href="#">我的购物车</a>
+      </li>
+
+        <li role="presentation">
+          <a class="dropdown-item" href="#">我的收藏</a>
+        </li>
+        <li role="presentation">
+          <a class="dropdown-item" href="#">我的订单</a>
+        </li>
+
+        <li role="presentation">
+          <a class="dropdown-item" href="#">我的商品</a>
+        </li>
+
+        <li role="presentation">
+          <a class="dropdown-item" th:href="@{/userlogout}">注销</a>
+        </li>
+<!--      <li role="presentation" class="divider"></li>-->
     </ul>
-  	 </div>   
+  	 </div>
+
+      <div class="dropdown" th:if="${#strings.isEmpty(session.uName)}">
+        <a id="myModal" class="dropdown-item" style="text-decoration: none; color: forestgreen" data-toggle="modal" data-target="#exampleModal">立即登录</a>
+      </div>
+
         
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <a class="btn btn-sm btn-outline-secondary nav-link" th:href="@{/pageone}">主页 <span class="sr-only">(current)</span></a>
+    <a class="btn btn-sm btn-outline-secondary nav-link" th:href="@{/UserIndex/pageone}">主页 <span class="sr-only">(current)</span></a>
     <div class="navbar-nav" style="margin-left:30px;margin-right:320px;width:620px">
       <ul class="navbar-nav mr-auto" th:each="type:${types}" >
         <li class="nav-item" style="float:left;">
-          <a class="nav-link" th:href="@{'/pageone?tId='+${type.tId}}">[[${type.tName}]]</a>
+          <a class="nav-link" th:href="@{'/UserIndex/pageone?tId='+${type.tId}}">[[${type.tName}]]</a>
         </li>
 
         <!--<li class="nav-item">
@@ -66,7 +87,7 @@
     </div>
 
      
-    <form class="form-inline my-2 my-lg-0" th:action="@{/searchgoods}" method="post">
+    <form class="form-inline my-2 my-lg-0" th:action="@{/UserIndex/searchgoods}" method="post">
       <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
     </form>
@@ -84,6 +105,10 @@
     </div>
   </div>
 
+  <div class="alert alert-info" th:if="${not #strings.isEmpty(session.msg)}">
+    <button type="button" class="close" th:onclick="javascript:clean()" data-dismiss="alert">&times;</button>
+    <strong th:text="${session.msg}" ></strong>
+  </div>
 
   <div class="album py-5 bg-light" id="jump" >
     <div class="container" style="margin-top:15px;">
@@ -96,7 +121,7 @@
               <p class="card-text" th:text="${goods.gName}">一只狗狗</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a type="button" th:href="@{/goodsinfo/}+${goods.gId}" class="btn btn-sm btn-outline-secondary">查看详情</a>
+                  <a type="button" th:href="@{/UserIndex/goodsinfo/}+${goods.gId}" class="btn btn-sm btn-outline-secondary">查看详情</a>
 <!--                  +${goods.gId}-->
                 </div>
                 <small class="text-muted">￥[[${goods.gPrice}]]</small>
@@ -111,25 +136,25 @@
       <div class="modal-footer no-margin-top" style="padding-top:20px;width:100%">
         <ul class="pagination " style="margin:0 auto">
           <li th:if="${pageInfo.hasPreviousPage}" >
-            <a th:href="@{'/pageone?pageNum=1'}" class="btn btn-sm btn-info startBtn1">首页</a>
+            <a th:href="@{'/UserIndex/pageone?pageNum=1'}" class="btn btn-sm btn-info startBtn1">首页</a>
           </li>&nbsp;&nbsp;
           <li class="prev" th:if="${pageInfo.hasPreviousPage}">
-            <a th:href="@{'/pageone?pageNum='+${pageInfo.prePage}}" class="btn btn-sm btn-info startBtn1">
+            <a th:href="@{'/UserIndex/pageone?pageNum='+${pageInfo.prePage}}" class="btn btn-sm btn-info startBtn1">
               上一页
             </a>
           </li>&nbsp;&nbsp;
           <!--遍历条数-->
           <li th:each="nav:${pageInfo.navigatepageNums}">
-            <a th:href="@{'/pageone?pageNum='+${nav}}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}" class="btn btn-sm btn-info startBtn1"></a>
+            <a th:href="@{'/UserIndex/pageone?pageNum='+${nav}}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}" class="btn btn-sm btn-info startBtn1"></a>
             <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" class="btn btn-sm btn-warning startBtn1"></span>&nbsp;&nbsp;
           </li>&nbsp;&nbsp;
           <li class="next" th:if="${pageInfo.hasNextPage}">
-            <a th:href="@{'/pageone?pageNum='+${pageInfo.nextPage}}" class="btn btn-sm btn-info startBtn1">
+            <a th:href="@{'/UserIndex/pageone?pageNum='+${pageInfo.nextPage}}" class="btn btn-sm btn-info startBtn1">
               下一页
             </a>
           </li>&nbsp;&nbsp;
           <li class="next" th:if="${pageInfo.hasNextPage}">
-            <a th:href="@{'/pageone?pageNum='+${pageInfo.pages}}" class="btn btn-sm btn-info startBtn1">尾页</a>
+            <a th:href="@{'/UserIndex/pageone?pageNum='+${pageInfo.pages}}" class="btn btn-sm btn-info startBtn1">尾页</a>
           </li>
         </ul>
       </div>
@@ -149,15 +174,15 @@
           </button>
         </div>
         <div class="modal-body">
-          <form class="table" th:action="@{/}" method="post" >
+          <form class="table" th:action="@{/userlogin}" method="post" >
 
               <div class="form-group" style="margin-left:70px">
                 <label style="float:left;font-size:15px">用户名:&emsp;&emsp;</label>
-                <input type="text" style="width:220px;height:30px;" class="form-control" id="username" placeholder="请输入您的用户名">
+                <input type="text" style="width:220px;height:30px;" class="form-control" name="uName" id="username" placeholder="请输入您的用户名">
               </div>
               <div class="form-group" style="margin-left:70px">
                 <label style="float:left;font-size:15px">密&emsp;码:&emsp;&emsp;</label>
-                <input type="password" style="width:220px;height:30px;" class="form-control" id="password" placeholder="请输入您的密码">
+                <input type="password" style="width:220px;height:30px;" class="form-control" name="password" id="password" placeholder="请输入您的密码">
               </div>
               <div class="c3-1" style="margin-left:50px">
                 <center>
@@ -165,7 +190,7 @@
                 </center>
                 <br />
                 <center style="">
-                <a id="searchPwd"   >忘记密码</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <a id="searchPwd"  th:href="@{/findback}" >忘记密码</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 <a id="toRegister" th:href="@{/signin}" >立即注册</a>
                 </center>
               </div>
@@ -185,7 +210,28 @@
 <footer class="container">
   <p>&copy; Company 2017-2019</p>
 </footer>
+
 <script type="text/javascript" th:src="@{/asserts/js/jquery-3.2.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}"  ></script>
+    <script type="text/javascript">
+    function clean(){
+		$.ajax({
+		url:'clean',
+		type:'POST',
+		data:{
+               "email" : 1,
+            },
+        success:function(data){
+        console.log(data);
+
+<!--                                alert("发送成功");-->
+							},
+		error:function(){
+<!--								alert("发送失败");-->
+						}
+		});
+
+}
+</script >
     </body>
 </html>

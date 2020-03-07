@@ -11,15 +11,13 @@ import com.neusoft.springboot1.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/UserIndex")
+@RequestMapping("/UserIndex")
 public class IndexController {
     @Autowired
     private GoodsService goodsService;
@@ -95,5 +93,11 @@ public class IndexController {
         model.addAttribute("goodsinfos",goods);
         model.addAttribute("commentlist",comments);
         return "userpage/goodsinfo";
+    }
+
+    @PostMapping("/clean")
+    @ResponseBody
+    public void sendTemplateMail(HttpSession session) {
+        session.removeAttribute("msg");
     }
 }

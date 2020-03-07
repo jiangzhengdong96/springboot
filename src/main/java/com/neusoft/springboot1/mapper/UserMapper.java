@@ -10,7 +10,7 @@ public interface UserMapper {
     @Select("select * from user where u_id=#{uId}")
     User getUserById(Integer uId);
     @Select("select * from user where u_name=#{uName}")
-    List<User> getUserByuName(String uName);
+    User getUserByuName(String uName);
     @Select("select * from user")
     List<User> getAllUser();
     @Delete("delete from user where u_id=#{uId}")
@@ -21,6 +21,8 @@ public interface UserMapper {
     int insertUser(User user);
     @Update("update user set u_name=#{uName}, email=#{email}, tele=#{tele}, address=#{address}, intro=#{intro}, u_pic=#{uPic}, sex=#{sex} where u_id =#{uId}")
     int updateUser(User user);
+    @Update("update user set password=#{password} where u_name =#{uName}")
+    int updateUserPassword(User user);
 
     @Update("update user set status=#{status} where u_id =#{uId}")
     int updateUserStatus(@Param("status") Integer status, @Param("uId") Integer uId);
