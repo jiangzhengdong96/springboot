@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Integer uId) {
-        return null;
+        return userMapper.getUserById(uId);
     }
 
     @Override
@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateUserPassword(User user) {
         return userMapper.updateUserPassword(user);
+    }
+
+    @Override
+    public int updateUserInfo(User user) {
+        return userMapper.updateUserInfo(user);
     }
 
 

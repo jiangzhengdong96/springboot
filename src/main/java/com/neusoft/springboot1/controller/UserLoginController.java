@@ -59,7 +59,7 @@ public class UserLoginController {
 //                    Timestamp d = new Timestamp(System.currentTimeMillis());
 //                    user.setAddtime(d);
                     userService.updateUserPassword(user);
-                    return "redirect:UserIndex/pageone";
+                    return "redirect:pageone";
                 }
             }
         }
@@ -84,7 +84,7 @@ public class UserLoginController {
                 Timestamp d = new Timestamp(System.currentTimeMillis());
                 user.setAddtime(d);
                 userService.insertUser(user);
-                return "redirect:UserIndex/pageone";
+                return "redirect:pageone";
             }
         }
 
@@ -117,14 +117,14 @@ public class UserLoginController {
                 session.setAttribute("uName",user.getuName());
 
                 session.setAttribute("msg","登录成功！");
-                return "redirect:UserIndex/pageone";
+                return "redirect:pageone";
             }else {
                 session.setAttribute("msg","用户密码错误！");
-                return "redirect:UserIndex/pageone";
+                return "redirect:pageone";
             }
         }else {
             session.setAttribute("msg","用户名不存在！");
-            return "redirect:UserIndex/pageone";
+            return "redirect:pageone";
         }
     }
 
@@ -135,8 +135,9 @@ public class UserLoginController {
 //            String username = (String) session.getAttribute("loginUser");
             session.invalidate();
         }
-        return "redirect:UserIndex/pageone";
+        return "redirect:pageone";
     }
+
 
 
 }

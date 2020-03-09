@@ -2,30 +2,28 @@ package com.neusoft.springboot1.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.neusoft.springboot1.entity.Comment;
 import com.neusoft.springboot1.entity.Goods;
 import com.neusoft.springboot1.entity.Type;
-import com.neusoft.springboot1.service.CommentService;
 import com.neusoft.springboot1.service.GoodsService;
 import com.neusoft.springboot1.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/UserIndex")
+//@RequestMapping("/UserIndex")
 public class IndexController {
     @Autowired
     private GoodsService goodsService;
     @Autowired
-    private CommentService commentService;
-    @Autowired
     private TypeService typeService;
-
     @GetMapping("/pageone")
     public String Index(Model model,
                         @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
@@ -83,21 +81,14 @@ public class IndexController {
     }
 
 
-    @GetMapping("/goodsinfo/{gId}")
-    public String GoodsInfo( @PathVariable("gId") Integer gId,
-                             Model model){
-        System.out.println(gId);
-        List<Comment> comments = commentService.getAllCommentsById(gId);
-        System.out.println(comments);
-        Goods goods = goodsService.getGoodsInfoById(gId);
-        model.addAttribute("goodsinfos",goods);
-        model.addAttribute("commentlist",comments);
-        return "userpage/goodsinfo";
-    }
-
     @PostMapping("/clean")
     @ResponseBody
     public void sendTemplateMail(HttpSession session) {
         session.removeAttribute("msg");
     }
+
+
+
+
+
 }

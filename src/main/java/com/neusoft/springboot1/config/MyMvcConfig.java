@@ -4,13 +4,16 @@ import com.github.pagehelper.PageHelper;
 import com.neusoft.springboot1.component.MyLocaleResolver;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.unit.DataSize;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.servlet.MultipartConfigElement;
 import java.util.Properties;
 
 //import com.neusoft.springboot1.component.LoginHandlerInterceptor;
@@ -83,4 +86,15 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
         pageHelper.setProperties(properties);
         return pageHelper;
     }
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        //允许上传的文件最大值
+        factory.setMaxFileSize(DataSize.parse("50MB")); //KB,MB
+        /// 设置总上传数据总大小
+        factory.setMaxRequestSize(DataSize.parse("50MB"));
+        return factory.createMultipartConfig();
+    }
+
 }

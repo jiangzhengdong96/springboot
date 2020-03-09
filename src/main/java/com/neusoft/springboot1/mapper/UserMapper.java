@@ -21,6 +21,8 @@ public interface UserMapper {
     int insertUser(User user);
     @Update("update user set u_name=#{uName}, email=#{email}, tele=#{tele}, address=#{address}, intro=#{intro}, u_pic=#{uPic}, sex=#{sex} where u_id =#{uId}")
     int updateUser(User user);
+    @Update("update user set u_name=#{uName}, email=#{email}, tele=#{tele}, address=#{address}, intro=#{intro}, sex=#{sex}, u_pic=#{uPic} where u_id =#{uId}")
+    int updateUserInfo(User user);
     @Update("update user set password=#{password} where u_name =#{uName}")
     int updateUserPassword(User user);
 
