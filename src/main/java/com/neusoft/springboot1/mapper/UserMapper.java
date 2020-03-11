@@ -25,7 +25,8 @@ public interface UserMapper {
     int updateUserInfo(User user);
     @Update("update user set password=#{password} where u_name =#{uName}")
     int updateUserPassword(User user);
-
+    @Update("update user set password=#{password} where u_id =#{uId}")
+    int updateUserPasswordById(@Param("password") String password,@Param("uId") Integer uId);
     @Update("update user set status=#{status} where u_id =#{uId}")
     int updateUserStatus(@Param("status") Integer status, @Param("uId") Integer uId);
 }

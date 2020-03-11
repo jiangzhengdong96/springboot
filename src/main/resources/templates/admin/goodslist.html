@@ -78,6 +78,7 @@
 									<th>上传人</th>
 									<th>数量</th>
 									<th>发布时间</th>
+									<th>上架状态</th>
 									<th>状态</th>
 									<th>操作</th>
 								</tr>
@@ -95,6 +96,10 @@
 							<td th:text="${goods.uName}"></td>
 							<td th:text="${goods.gNum}"></td>
 							<td th:text="${#dates.format(goods.addtime, 'yyyy/MM/dd HH:mm:ss')}"></td>
+							<td class="goodstatus">
+								<span class="label label-success radius" th:if="${goods.upStatus == 1}">已上架</span>
+								<span class="label label-defaunt radius" th:if="${goods.upStatus == 0}">已下架</span>
+							</td>
 							<td class="goodstatus">
 							<span class="label label-success radius" th:if="${goods.gStatus} eq '1'">正常</span>
 							<span class="label label-defaunt radius" th:if="${goods.gStatus} eq '0'">禁用</span>

@@ -44,5 +44,35 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsMapper.getGoodsBySearch(search);
     }
 
+    @Override
+    public List<Goods> getGoodsByuId(Integer uId) {
+        return goodsMapper.getGoodsByuId(uId);
+    }
+
+    @Override
+    public int updateGoodupStatus(Integer upStatus, Integer gId) {
+        return goodsMapper.updateGoodupStatus(upStatus,gId);
+    }
+
+    @Override
+    public int deleteGoodsById(Integer gId) {
+        return goodsMapper.deleteGoodsById(gId);
+    }
+
+    @Override
+    public int insertGoods(Goods goods) {
+        return goodsMapper.insertGoods(goods);
+    }
+
+    @Override
+    public List<Goods> getGoodsInfoBygName(String gName) {
+        return goodsMapper.getGoodsInfoBygName(gName);
+    }
+
+    @Override
+    public int updateGoods(Goods goods) {
+        return goodsMapper.updateGoods(goods);
+    }
+
 
 }

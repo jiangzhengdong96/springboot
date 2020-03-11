@@ -86,8 +86,14 @@
 							<td th:if="${user.sex} eq '0'">女</td>
 							<td th:text="${user.email}"></td>
 							<td th:text="${user.tele}"></td>
-							<td th:text="${user.address}"></td>
-							<td th:text="${user.intro}"></td>
+							<td class="address">
+								<span class="label label-success radius" th:text="${user.address}" th:if="${not #strings.isEmpty(user.address)}"></span>
+								<span class="label label-defaunt radius" th:if="${#strings.isEmpty(user.address)}">无</span>
+							</td>
+							<td class="intro">
+								<span class="label label-success radius" th:text="${user.intro}" th:if="${not #strings.isEmpty(user.intro)}"></span>
+								<span class="label label-defaunt radius" th:if="${#strings.isEmpty(user.intro)}">无</span>
+							</td>
 							<td>
 								<a id="myModal" data-toggle="modal" data-target="#exampleModal" th:onClick="'javascript:Values('+${user.uId}+')'">点击查看购物车内容</a>
 							</td>

@@ -1,7 +1,6 @@
 package com.neusoft.springboot1.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Goods {
     private Integer gId;
@@ -14,6 +13,10 @@ public class Goods {
     private Timestamp addtime;
     private Integer gPrice;
     private String tName;
+    private Integer tId;
+    private Integer uId;
+    private Integer upStatus;
+
 
     public Integer getgId() {
         return gId;
@@ -95,5 +98,48 @@ public class Goods {
 
     public void settName(String tName) {
         this.tName = tName;
+    }
+
+    public Integer getUpStatus() {
+        return upStatus;
+    }
+
+    public void setUpStatus(Integer upStatus) {
+        this.upStatus = upStatus;
+    }
+
+    public Integer gettId() {
+        return tId;
+    }
+
+    public void settId(Integer tId) {
+        this.tId = tId;
+    }
+
+    public Integer getuId() {
+        return uId;
+    }
+
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "gId=" + gId +
+                ", gName='" + gName + '\'' +
+                ", gIntro='" + gIntro + '\'' +
+                ", gNum=" + gNum +
+                ", uName='" + uName + '\'' +
+                ", gPic='" + gPic + '\'' +
+                ", gStatus=" + gStatus +
+                ", addtime=" + addtime +
+                ", gPrice=" + gPrice +
+                ", tName='" + tName + '\'' +
+                ", tId=" + tId +
+                ", uId=" + uId +
+                ", upStatus=" + upStatus +
+                '}';
     }
 }

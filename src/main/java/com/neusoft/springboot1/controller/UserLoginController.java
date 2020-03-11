@@ -109,23 +109,29 @@ public class UserLoginController {
         User user = userService.getUserByuName(uName);
 
 //        System.out.println(manager.getmName());
-        if(!StringUtils.isEmpty(user)){
-            String password1 = stringEncryptor.decrypt(user.getPassword());
-            if(!StringUtils.isEmpty(user.getuName()) && password1.equals(password)){
-                //登陆成功,防止表单重复提交，可以重定向主页
-                session.setAttribute("uId",user.getuId());
-                session.setAttribute("uName",user.getuName());
+        if(user.getStatus().equals(1)){
+            if(!StringUtils.isEmpty(user)){
+                String password1 = stringEncryptor.decrypt(user.getPassword());
+                if(!StringUtils.isEmpty(user.getuName()) && password1.equals(password)){
+                    //登陆成功,防止表单重复提交，可以重定向主页
+                    session.setAttribute("uId",user.getuId());
+                    session.setAttribute("uName",user.getuName());
 
-                session.setAttribute("msg","登录成功！");
-                return "redirect:pageone";
+                    session.setAttribute("msg","登录成功！");
+                    return "redirect:pageone";
+                }else {
+                    session.setAttribute("msg","登录失败，用户密码错误！");
+                    return "redirect:pageone";
+                }
             }else {
-                session.setAttribute("msg","用户密码错误！");
+                session.setAttribute("msg","登录失败，用户名不存在！");
                 return "redirect:pageone";
             }
-        }else {
-            session.setAttribute("msg","用户名不存在！");
+        }else{
+            session.setAttribute("msg","登录失败，该用户被禁用！");
             return "redirect:pageone";
         }
+
     }
 
     @RequestMapping(value = "/userlogout")
@@ -139,5 +145,36 @@ public class UserLoginController {
     }
 
 
+    @PostMapping(value = "/changepassword")
+//    @RequestMapping(value ="user/login",method = RequestMethod.POST)
+    public String changepassword(
+                        @RequestParam("password") String password,
+                        @RequestParam("oldpassword") String oldpassword,
+                         @RequestParam("reoldpassword") String reoldpassword,
+                        Map<String,Object> map, HttpSession session){
+        User user = userService.getUserById((Integer) session.getAttribute("uId"));
+        System.out.println(user);
+        System.out.println(oldpassword.length());
+        if(oldpassword.length() >= 4 && reoldpassword.length() >= 4 ){
+            if(oldpassword.equals(reoldpassword)){
+                String password1 = stringEncryptor.decrypt(user.getPassword());
+                if(password1.equals(password)){
+                    userService.updateUserPasswordById(stringEncryptor.encrypt(oldpassword),user.getuId());
+                    session.setAttribute("msg","密码修改成功！");
+                    return "redirect:pageone";
+                }else {
+                    session.setAttribute("msg","修改失败，旧密码输入错误！");
+                    return "redirect:pageone";
+                }
+            }else {
+                session.setAttribute("msg","修改失败，确认新密码与新密码不相同！");
+                return "redirect:pageone";
+            }
+        }else{
+            session.setAttribute("msg","修改失败，密码长度不得小于4位！");
+            return "redirect:pageone";
+        }
+
+    }
 
 }

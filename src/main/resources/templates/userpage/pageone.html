@@ -38,7 +38,7 @@
       <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown01">
 <!--       <li role="presentation" class="divider"></li>-->
       <li role="presentation">
-      	<a class="dropdown-item" href="#">修改密码</a>
+        <a id="myModal1" class="dropdown-item" data-toggle="modal" data-target="#exampleModal1">修改密码</a>
       </li>
 
         <li role="presentation">
@@ -50,14 +50,14 @@
       </li>
 
         <li role="presentation">
-          <a class="dropdown-item" href="#">我的收藏</a>
+          <a class="dropdown-item" th:href="@{/usercollectc}" href="#">我的收藏</a>
         </li>
         <li role="presentation">
           <a class="dropdown-item" href="#">我的订单</a>
         </li>
 
         <li role="presentation">
-          <a class="dropdown-item" href="#">我的商品</a>
+          <a class="dropdown-item" th:href="@{/usergoodsc}" href="#">我的商品</a>
         </li>
 
         <li role="presentation">
@@ -73,7 +73,7 @@
 
         
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <a class="btn btn-sm btn-outline-secondary nav-link" th:href="@{/UserIndex/pageone}">主页 <span class="sr-only">(current)</span></a>
+    <a class="btn btn-sm btn-outline-secondary nav-link" th:href="@{/pageone}">主页 <span class="sr-only">(current)</span></a>
     <div class="navbar-nav" style="margin-left:30px;margin-right:320px;width:620px">
       <ul class="navbar-nav mr-auto" th:each="type:${types}" >
         <li class="nav-item" style="float:left;">
@@ -194,6 +194,51 @@
                 <a id="toRegister" th:href="@{/signin}" >立即注册</a>
                 </center>
               </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<!--修改密码模态框-->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog  "  role="document" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="font-size:15px" id="exampleModalLabel1">修改密码</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="table" th:action="@{/changepassword}" method="post" >
+
+            <div class="form-group" style="margin-left:70px">
+              <label style="float:left;font-size:15px">用&emsp;户&emsp;名:&emsp;&emsp;</label>
+              <input type="text" style="width:220px;height:30px;" class="form-control" th:value="${session.uName}" disabled="disabled" name="uName"  >
+            </div>
+            <div class="form-group" style="margin-left:70px">
+              <label style="float:left;font-size:15px">旧&emsp;密&emsp;码:&emsp;&emsp;</label>
+              <input type="password" style="width:220px;height:30px;" class="form-control" name="password" id="password" placeholder="请输入您的旧密码">
+            </div>
+            <div class="form-group" style="margin-left:70px">
+              <label style="float:left;font-size:15px">新&emsp;密&emsp;码:&emsp;&emsp;</label>
+              <input type="password" style="width:220px;height:30px;" class="form-control" name="oldpassword" id="password" placeholder="请输入您的新密码">
+            </div>
+            <div class="form-group" style="margin-left:70px">
+              <label style="float:left;font-size:15px">确认新密码:&emsp;&emsp;</label>
+              <input type="password" style="width:220px;height:30px;" class="form-control" name="reoldpassword" id="password" placeholder="请再次输入您的新密码">
+            </div>
+            <div class="c3-1" style="margin-left:50px">
+              <center>
+                <button id="login" style="margin-left:-20px; width:150px" class="btn btn-primary">立即修改</button>
+              </center>
+            </div>
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>

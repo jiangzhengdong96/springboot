@@ -166,6 +166,7 @@ public class AdminController {
     @ResponseBody
     public void updateGoodStatus(@RequestParam("gId") Integer gId,@RequestParam("gStatus") Integer gStatus){
         if(gStatus==1){
+            goodsService.updateGoodupStatus(0,gId);
             goodsService.updateGoodStatus(0,gId);
         }else if (gStatus==0){
             goodsService.updateGoodStatus(1,gId);
@@ -312,7 +313,7 @@ public void updateOrderGoodStatus(@RequestParam("id") Integer id,@RequestParam("
     @GetMapping("/collect")
     public String getAllCollect(Model model,
                                 @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
-                                @RequestParam(defaultValue="10",value="pageSize")Integer pageSize){
+                                @RequestParam(defaultValue="6",value="pageSize")Integer pageSize){
         if(pageNum==null || pageNum<=0){
             pageNum = 1;
         }

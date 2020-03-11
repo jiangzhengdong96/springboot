@@ -57,6 +57,7 @@ public class IndexController {
         }
         return "userpage/pageone";
     }
+
     @PostMapping("/searchgoods")
     public String SearchGoods(Model model,
                               @RequestParam("search") String search,
