@@ -1,7 +1,6 @@
 package com.neusoft.springboot1.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Order {
     private Integer oId;
@@ -10,6 +9,7 @@ public class Order {
     private Timestamp addtime;
     private Integer payment;
     private String uName;
+    private Integer uId;
     private String address;
     private float price;
     private Integer isPay;
@@ -19,6 +19,14 @@ public class Order {
     private Integer isReceipt;
     private Timestamp receipttime;
     private String sendNumber;
+
+    public Integer getuId() {
+        return uId;
+    }
+
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
 
     public Integer getoId() {
         return oId;

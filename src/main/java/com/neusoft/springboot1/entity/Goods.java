@@ -16,6 +16,7 @@ public class Goods {
     private Integer tId;
     private Integer uId;
     private Integer upStatus;
+    private Integer collectt;
 
 
     public Integer getgId() {
@@ -50,7 +51,13 @@ public class Goods {
         this.gNum = gNum;
     }
 
+    public Integer getCollectt() {
+        return collectt;
+    }
 
+    public void setCollectt(Integer collectt) {
+        this.collectt = collectt;
+    }
 
     public String getgPic() {
         return gPic;
@@ -140,6 +147,7 @@ public class Goods {
                 ", tId=" + tId +
                 ", uId=" + uId +
                 ", upStatus=" + upStatus +
+                ", collectt=" + collectt +
                 '}';
     }
 }

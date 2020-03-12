@@ -1,0 +1,475 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+
+    <title>我的购物车</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet"  crossorigin="anonymous">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/jumbotron.css" th:href="@{/asserts/css/jumbotron.css}" rel="stylesheet">
+    <!--<link href="asserts/css/album.css" rel="stylesheet">-->
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="dropdown" th:if="${not #strings.isEmpty(session.uName)}">
+        <a class="nav-link dropdown-toggle" style="text-decoration: none; color: forestgreen" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">[[${session.uName}]]</a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown01">
+            <!--       <li role="presentation" class="divider"></li>-->
+            <li role="presentation">
+                <a id="myModal1" class="dropdown-item" data-toggle="modal" data-target="#exampleModal1">修改密码</a>
+            </li>
+
+            <li role="presentation">
+                <a class="dropdown-item" th:href="@{/userinfoc}" href="#">个人信息</a>
+            </li>
+            <!--       <li role="presentation" class="divider"></li>-->
+            <li role="presentation">
+                <a class="dropdown-item" th:href="@{/usershopcarc}" href="#">我的购物车</a>
+            </li>
+
+            <li role="presentation">
+                <a class="dropdown-item" th:href="@{/usercollectc}" href="#">我的收藏</a>
+            </li>
+            <li role="presentation">
+                <a class="dropdown-item" href="#">我的订单</a>
+            </li>
+
+            <li role="presentation">
+                <a class="dropdown-item" th:href="@{/usergoodsc}" href="#">我的商品</a>
+            </li>
+
+            <li role="presentation">
+                <a class="dropdown-item" th:href="@{/userlogout}">注销</a>
+            </li>
+            <!--      <li role="presentation" class="divider"></li>-->
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <a class="btn btn-sm btn-outline-secondary nav-link" th:href="@{/pageone}">主页 <span class="sr-only">(current)</span></a>
+    </div>
+</nav>
+
+<main role="main">
+    <div class="album py-5 bg-light" id="jump" >
+
+        <div class="container" style="margin-top:15px;">
+            <h2> 我的购物车</h2>
+            <hr class="featurette-divider" style="width: 100%;">
+            <div  style="margin:10px;">
+                <a class="btn btn-sm btn-success" th:onClick="javascript:submitorder()" id="myModal2"  data-toggle="modal" data-target="#exampleModal2"  style="margin-left:10px;padding:5px;float:left" >
+                    立即结算
+                </a>
+                <a class="btn btn-sm btn-info"  th:onClick="javascript:sum()" style="margin-left:10px;padding:5px;float:left" >
+                    合计
+                </a>
+                <p  style="padding-left:20px;float:left">已选<span id="allsize" style="color:red;font-size:20px">0</span>种商品</p>
+                <p  style="margin-left:20px;float:left">合计<span id="allprice" style="color:red;font-size:20px">0.00</span>元</p>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><input th:onClick="'javascript:checkAll('+this.checked+')'" type="checkbox" /></th>
+                    <th>名称</th>
+                    <th>图片</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>价格</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="shopcar:${shopcars}">
+                    <td th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 and shopcar.status == 1}">
+                        <input type="checkbox" th:value="${shopcar.sId}" name="ids">
+                    </td>
+                    <td th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 || shopcar.status == 0}">
+                        <input  disabled="disabled"  type="checkbox" value="">
+                    </td>
+                    <td>
+                        <a style="text-decoration:none;"   th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 }" th:href="@{/goodsinfo/}+${shopcar.gId}" >[[${shopcar.gName}]]</a>
+                        <a style="text-decoration:none;color:black"   th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 }"  >[[${shopcar.gName}]]</a>
+                    </td>
+                    <td>
+                        <a style="text-decoration:none;"   th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 }" th:href="@{/goodsinfo/}+${shopcar.gId}" >
+                            <img  height="50px"  th:src="@{'asserts/img/uploads/'+${shopcar.gPic}}">
+                        </a>
+                        <a style="text-decoration:none;"   th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 }"   >
+                            <img  height="50px"  th:src="@{'asserts/img/uploads/'+${shopcar.gPic}}">
+                        </a>
+                    </td>
+                    <td id="getprice" th:text="${shopcar.gPrice}"></td>
+                    <td>
+						     <span class="input-group-btn" style="float:left">
+                                 <button class="btn btn-info" th:if="${shopcar.number <= 1}"  disabled="disabled"  th:onClick="'javascript:downnum('+${shopcar.sId}+','+${shopcar.number}+')'"  type="button">-</button>
+						       <button class="btn btn-info"  th:if="${shopcar.number > 1}" th:onClick="'javascript:downnum('+${shopcar.sId}+','+${shopcar.number}+')'"  type="button">-</button>
+						     </span>
+                            <input type="text" style="width: 30px; height:26px;float:left" class="form-control" th:value="${shopcar.number}"  disabled="disabled" placeholder="2">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info" th:if="${shopcar.number >= shopcar.gNum}"  disabled="disabled" th:onClick="'javascript:upnum('+${shopcar.sId}+','+${shopcar.number}+')'" type="button">+</button>
+						       <button class="btn btn-info" th:if="${shopcar.number < shopcar.gNum}" th:onClick="'javascript:upnum('+${shopcar.sId}+','+${shopcar.number}+')'" type="button">+</button>
+						     </span>
+                    </td>
+                    <td id="setallprice" style="color:red;font-size:20px" th:text="${shopcar.sPrice}"></td>
+                    <td class="goodstatus">
+                        <span class="label label-success radius" th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 and shopcar.status == 1}">正常</span>
+                        <span class="label label-defaunt radius" th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 || shopcar.status == 0}">已失效</span>
+                    </td>
+                    <td class="manage">
+<!--                        <a style="text-decoration:none"  th:onClick="'javascript:changegoodstatus2('+${shopcar.gId}+','+${shopcar.upStatus}+')'" class="btn btn-sm btn-success startBtn"    th:if="${shopcar.upStatus == 0 and shopcar.gStatus == 1 }">收藏</a>-->
+<!--                        <a style="text-decoration:none"  th:onClick="'javascript:changegoodstatus2('+${shopcar.gId}+','+${shopcar.upStatus}+')'"  class="btn btn-sm btn-warning stopBtn"   th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 }">已收藏</a>-->
+                        <a style="text-decoration:none"  th:onClick="'javascript:deleteshopcar('+${shopcar.sId}+')'"  class="btn btn-sm btn-danger stopBtn">删除</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--修改密码模态框-->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog  "  role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="font-size:15px" id="exampleModalLabel1">修改密码</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="table" th:action="@{/changepassword}" method="post" >
+                        <div class="form-group" style="margin-left:70px">
+                            <label style="float:left;font-size:15px">用&emsp;户&emsp;名:&emsp;&emsp;</label>
+                            <input type="text" style="width:220px;height:30px;" class="form-control" th:value="${session.uName}" disabled="disabled" name="uName"  >
+                        </div>
+                        <div class="form-group" style="margin-left:70px">
+                            <label style="float:left;font-size:15px">旧&emsp;密&emsp;码:&emsp;&emsp;</label>
+                            <input type="password" style="width:220px;height:30px;" class="form-control" name="password" id="password" placeholder="请输入您的旧密码">
+                        </div>
+                        <div class="form-group" style="margin-left:70px">
+                            <label style="float:left;font-size:15px">新&emsp;密&emsp;码:&emsp;&emsp;</label>
+                            <input type="password" style="width:220px;height:30px;" class="form-control" name="oldpassword" id="password" placeholder="请输入您的新密码">
+                        </div>
+                        <div class="form-group" style="margin-left:70px">
+                            <label style="float:left;font-size:15px">确认新密码:&emsp;&emsp;</label>
+                            <input type="password" style="width:220px;height:30px;" class="form-control" name="reoldpassword" id="password" placeholder="请再次输入您的新密码">
+                        </div>
+                        <div class="c3-1" style="margin-left:50px">
+                            <center>
+                                <button id="login" style="margin-left:-20px; width:150px" class="btn btn-primary">立即修改</button>
+                            </center>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--提交订单-->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog  "  role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="font-size:15px" id="exampleModalLabel2">提交订单</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="table" th:action="@{/addorder}" method="post" >
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>图片</th>
+                                <th>名称</th>
+                                <th>单价</th>
+                                <th>数量</th>
+                                <th>价格</th>
+                            </tr>
+                            </thead>
+                            <tbody id="shopcarlist">
+
+                            </tbody>
+                        </table>
+                        <input id="allsid" name="allsid" type="hidden">
+                        <div class="form-group" style="margin-left:20px">
+                            <label style="float:left;font-size:15px">&emsp;&nbsp;&nbsp;送&emsp;货&emsp;方&emsp;式:&emsp;&emsp;</label>
+                            <select name="address" style="width:220px;height:30px"  class="form-control">
+                                <option value="1" >快递邮寄</option>
+                                <option value="0" >面对面送货</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-left:20px">
+                            <label style="float:left;font-size:15px">送货地址(会面地址):&emsp;&emsp;</label>
+                            <textarea type="text" name="address" style="width:220px;" class="form-control"   ></textarea>
+                        </div>
+
+                        <div class="c3-1" style="margin-left:50px;margin-bottom:10px">
+                            <p  style="padding-left:20px;float:left">一共<span id="allsize1" style="color:red;font-size:20px"></span>种商品</p>
+                            <p  style="margin-left:20px;float:left">合计<span id="allprice1" style="color:red;font-size:20px"></span>元</p>
+
+                            <center>
+                                <button id="login1" style="margin-left:-20px; width:150px" class="btn btn-primary">提交订单</button>
+                            </center>
+                        </div>
+
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+
+<script type="text/javascript" th:src="@{/asserts/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}"  ></script>
+<script type="text/javascript">
+function checkAll(checked){
+	var objs=document.getElementsByName("ids");
+	if(objs!=null && objs.length>0){
+		for(var i=0;i<objs.length;i++){
+			objs[i].checked=checked;
+		}
+	}
+}
+
+function getCheckValue(){
+	var checkValue="";
+	var objs=document.getElementsByName("ids");
+	if(objs!=null && objs.length>0){
+		for(var i=0;i<objs.length;i++){
+			if(objs[i].checked){
+				checkValue+=objs[i].value+";";
+			}
+		}
+	}
+	return checkValue;
+}
+
+function isCheck(){
+	var objs=document.getElementsByName("ids");
+	if(objs!=null && objs.length>0){
+		for(var i=0;i<objs.length;i++){
+			if(objs[i].checked){
+				if(objs[i].checked){
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+function getCheckValueArr(){
+	return getCheckValue().split(";");
+}
+
+function submitorder(){
+    if(isCheck()){
+             var sId = getCheckValueArr();
+            $.ajax({
+            url:'submitorder',
+            type:'POST',
+            data:{
+                   sIds:sId,
+                },
+            success:function(data){
+                                    var Str = "";
+                                    var num = 0;
+                                    var sum = 0;
+                                    var sIds = new Array();
+									var shopcarlist = data;
+									for (let shopIndex in shopcarlist) {
+									sIds.push(shopcarlist[shopIndex].sId);
+									num+=1;
+									sum+=shopcarlist[shopIndex].sPrice;
+									Str += '<tr><td>' + '<img  height="50px"src="asserts/img/uploads/'+shopcarlist[shopIndex].gPic+'">'+ '</td>'
+     									+'<td>' + shopcarlist[shopIndex].gName + '</td>'
+     									+'<td>' + shopcarlist[shopIndex].gPrice + '</td>'
+     									+'<td>' + shopcarlist[shopIndex].number + '</td>'
+     									+'<td>' + shopcarlist[shopIndex].sPrice + '</td></tr>'
+     									;
+									}
+                                    document.getElementById("shopcarlist").innerHTML = Str;
+                                document.getElementById("allprice1").innerHTML = sum;
+                                document.getElementById("allsize1").innerHTML = num;
+                                document.getElementById("allsid").value = sIds;
+                                console,log(sIds);
+                                },
+            error:function(){
+                                    alert("数据传输异常");
+                                }
+            });
+        }else{
+            alert("请选择要结算的商品!");
+            window.location.reload();
+        }
+
+}
+
+function sum(){
+    if(isCheck()){
+             var sId = getCheckValueArr();
+            $.ajax({
+            url:'sum',
+            type:'POST',
+            data:{
+                   sIds:sId,
+                },
+            success:function(data){
+                                var price1 = "";
+                                var size1 = "";
+                                var price1 = data.price;
+                                var size1 = data.size;
+
+                                    // 显示模态框
+
+                                document.getElementById("allprice").innerHTML = price1;
+                                document.getElementById("allsize").innerHTML = size1;
+    <!--						window.location.reload();-->
+                                },
+            error:function(){
+                                    alert("数据传输异常");
+                                }
+            });
+        }else{
+            alert("请选择要合计的商品!");
+        }
+
+}
+</script>
+
+<script type="text/javascript">
+
+function upnum(Id,num){
+		$.ajax({
+		url:'upnum',
+		type:'POST',
+		data:{
+                "sId": Id,
+                "number":num,
+            },
+        success:function(data){
+							    // 显示模态框
+						window.location.reload();
+							},
+							error:function(){
+								alert("数据传输异常");
+							}
+		});
+
+}
+
+
+</script>
+
+<script type="text/javascript">
+
+function deleteshopcar(Id){
+		$.ajax({
+		url:'deleteshopcar',
+		type:'POST',
+		data:{
+                "sId": Id,
+
+            },
+        success:function(data){
+							    // 显示模态框
+						window.location.reload();
+							},
+							error:function(){
+								alert("数据传输异常");
+							}
+		});
+
+}
+
+
+</script>
+
+<script type="text/javascript">
+
+function downnum(Id,num){
+
+		$.ajax({
+		url:'downnum',
+		type:'POST',
+		data:{
+                "sId": Id,
+                "number":num,
+            },
+        success:function(data){
+							    // 显示模态框
+						window.location.reload();
+							},
+							error:function(){
+								alert("数据传输异常");
+							}
+		});
+
+}
+
+
+</script>
+<script type="text/javascript">
+
+function deletegoods(Id){
+if(confirm('确定删除?'))
+  {
+    $.ajax({
+		url:'deletegoods',
+		type:'POST',
+		data:{
+                "gId": Id,
+            },
+        success:function(data){
+							    // 显示模态框
+						window.location.reload();
+							},
+							error:function(){
+								alert("数据传输异常");
+							}
+		});
+  }
+  return false;
+
+
+}
+
+
+</script>
+</body>
+</html>

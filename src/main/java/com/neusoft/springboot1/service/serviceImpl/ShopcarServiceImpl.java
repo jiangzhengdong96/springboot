@@ -30,5 +30,20 @@ public class ShopcarServiceImpl implements ShopcarService {
         return shopcars;
     }
 
+    @Override
+    public int updateShopcarNumBysId(Integer number, Integer sId, float sPrice) {
+        return shopecarMapper.updateShopcarNumBysId(number,sId,sPrice);
+    }
+
+    @Override
+    public Shopcar getShopcarBysId(Integer sId) {
+        return shopecarMapper.getShopcarBysId(sId);
+    }
+
+    @Override
+    public int deleteShopcarById(Integer sId) {
+        return shopecarMapper.deleteShopcarById(sId);
+    }
+
 
 }

@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Shopcar {
     private Integer sId;
-//    private Integer uId;
+    private Integer gId;
     private String gName;
     private Integer number;
     private String gPic;
@@ -12,6 +12,18 @@ public class Shopcar {
     private Integer status;
     private Timestamp addtime;
     private Timestamp updatetime;
+    private Integer upStatus;
+    private Integer gStatus;
+    private Integer gNum;
+    private float sPrice;
+
+    public float getsPrice() {
+        return sPrice;
+    }
+
+    public void setsPrice(float sPrice) {
+        this.sPrice = sPrice;
+    }
 
     public Integer getsId() {
         return sId;
@@ -83,5 +95,56 @@ public class Shopcar {
 
     public void setUpdatetime(Timestamp updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public Integer getUpStatus() {
+        return upStatus;
+    }
+
+    public void setUpStatus(Integer upStatus) {
+        this.upStatus = upStatus;
+    }
+
+    public Integer getgStatus() {
+        return gStatus;
+    }
+
+    public void setgStatus(Integer gStatus) {
+        this.gStatus = gStatus;
+    }
+
+    public Integer getgNum() {
+        return gNum;
+    }
+
+    public void setgNum(Integer gNum) {
+        this.gNum = gNum;
+    }
+
+    public Integer getgId() {
+        return gId;
+    }
+
+    public void setgId(Integer gId) {
+        this.gId = gId;
+    }
+
+    @Override
+    public String toString() {
+        return "Shopcar{" +
+                "sId=" + sId +
+                ", gId=" + gId +
+                ", gName='" + gName + '\'' +
+                ", number=" + number +
+                ", gPic='" + gPic + '\'' +
+                ", gPrice=" + gPrice +
+                ", status=" + status +
+                ", addtime=" + addtime +
+                ", updatetime=" + updatetime +
+                ", upStatus=" + upStatus +
+                ", gStatus=" + gStatus +
+                ", gNum=" + gNum +
+                ", sPrice=" + sPrice +
+                '}';
     }
 }
