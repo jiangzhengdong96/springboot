@@ -25,5 +25,15 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
+    @Override
+    public int insertOrder(Order order) {
+        return orderMapper.insertOrder(order);
+    }
+
+    @Override
+    public Order getLastOrder() {
+        return orderMapper.getLastOrder();
+    }
+
 
 }

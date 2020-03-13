@@ -24,5 +24,10 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
         return orderGoodsMapper.updateOrderGoodsStatus(status,id);
     }
 
+    @Override
+    public int insertOrderGoods(OrderGoods orderGoods) {
+        return orderGoodsMapper.insertOrderGoods(orderGoods);
+    }
+
 
 }

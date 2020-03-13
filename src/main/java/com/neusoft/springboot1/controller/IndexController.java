@@ -87,6 +87,11 @@ public class IndexController {
     public void sendTemplateMail(HttpSession session) {
         session.removeAttribute("msg");
     }
+    @PostMapping("/clean1")
+    @ResponseBody
+    public void sendTemplateMail1(HttpSession session) {
+        session.removeAttribute("msg4");
+    }
 
 
 

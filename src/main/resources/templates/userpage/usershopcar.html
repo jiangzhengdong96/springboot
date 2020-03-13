@@ -77,6 +77,10 @@
         <div class="container" style="margin-top:15px;">
             <h2> 我的购物车</h2>
             <hr class="featurette-divider" style="width: 100%;">
+            <div class="alert alert-info" style="height:30px" th:if="${not #strings.isEmpty(session.msg4)}">
+                <button type="button" class="close" th:onclick="javascript:clean()" data-dismiss="alert">&times;</button>
+                <strong th:text="${session.msg4}" ></strong>
+            </div>
             <div  style="margin:10px;">
                 <a class="btn btn-sm btn-success" th:onClick="javascript:submitorder()" id="myModal2"  data-toggle="modal" data-target="#exampleModal2"  style="margin-left:10px;padding:5px;float:left" >
                     立即结算
@@ -193,6 +197,7 @@
             </div>
         </div>
     </div>
+
     <!--提交订单-->
     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -223,18 +228,18 @@
                         <input id="allsid" name="allsid" type="hidden">
                         <div class="form-group" style="margin-left:20px">
                             <label style="float:left;font-size:15px">&emsp;&nbsp;&nbsp;送&emsp;货&emsp;方&emsp;式:&emsp;&emsp;</label>
-                            <select name="address" style="width:220px;height:30px"  class="form-control">
-                                <option value="1" >快递邮寄</option>
-                                <option value="0" >面对面送货</option>
+                            <select name="payment" style="width:220px;height:30px"  class="form-control">
+                                <option value="0" >快递邮寄</option>
+                                <option value="1" >面对面送货</option>
                             </select>
                         </div>
                         <div class="form-group" style="margin-left:20px">
                             <label style="float:left;font-size:15px">送货地址(会面地址):&emsp;&emsp;</label>
                             <textarea type="text" name="address" style="width:220px;" class="form-control"   ></textarea>
                         </div>
-
+                            <input type="hidden" name="price" id="allprice2">
                         <div class="c3-1" style="margin-left:50px;margin-bottom:10px">
-                            <p  style="padding-left:20px;float:left">一共<span id="allsize1" style="color:red;font-size:20px"></span>种商品</p>
+                            <p  style="padding-left:20px;float:left">一共<span id="allsize1"  style="color:red;font-size:20px"></span>种商品</p>
                             <p  style="margin-left:20px;float:left">合计<span id="allprice1" style="color:red;font-size:20px"></span>元</p>
 
                             <center>
@@ -327,7 +332,8 @@ function submitorder(){
                                 document.getElementById("allprice1").innerHTML = sum;
                                 document.getElementById("allsize1").innerHTML = num;
                                 document.getElementById("allsid").value = sIds;
-
+                                document.getElementById("allprice2").value = sum;
+                                    console.log(sIds)
                                 },
             error:function(){
                                     alert("数据传输异常");
@@ -471,5 +477,25 @@ if(confirm('确定删除?'))
 
 
 </script>
+<script type="text/javascript">
+    function clean(){
+		$.ajax({
+		url:'clean1',
+		type:'POST',
+		data:{
+               "email" : 1,
+            },
+        success:function(data){
+        console.log(data);
+
+<!--                                alert("发送成功");-->
+							},
+		error:function(){
+<!--								alert("发送失败");-->
+						}
+		});
+
+}
+</script >
 </body>
 </html>

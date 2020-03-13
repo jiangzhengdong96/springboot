@@ -1,7 +1,5 @@
 package com.neusoft.springboot1.entity;
 
-import org.apache.tomcat.jni.Time;
-
 import java.sql.Timestamp;
 
 public class OrderGoods {
@@ -12,6 +10,8 @@ public class OrderGoods {
     private Integer status;
     private Timestamp addtime;
     private Timestamp updatetime;
+    private Integer gId;
+    private Integer oId;
 
     public Integer getId() {
         return id;
@@ -67,5 +67,36 @@ public class OrderGoods {
 
     public void setUpdatetime(Timestamp updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public Integer getgId() {
+        return gId;
+    }
+
+    public void setgId(Integer gId) {
+        this.gId = gId;
+    }
+
+    public Integer getoId() {
+        return oId;
+    }
+
+    public void setoId(Integer oId) {
+        this.oId = oId;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderGoods{" +
+                "id=" + id +
+                ", gName='" + gName + '\'' +
+                ", num=" + num +
+                ", gPrice=" + gPrice +
+                ", status=" + status +
+                ", addtime=" + addtime +
+                ", updatetime=" + updatetime +
+                ", gId=" + gId +
+                ", oId=" + oId +
+                '}';
     }
 }

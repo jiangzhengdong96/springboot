@@ -156,6 +156,28 @@ public class Order {
         this.sendNumber = sendNumber;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "oId=" + oId +
+                ", oName='" + oName + '\'' +
+                ", status=" + status +
+                ", addtime=" + addtime +
+                ", payment=" + payment +
+                ", uName='" + uName + '\'' +
+                ", uId=" + uId +
+                ", address='" + address + '\'' +
+                ", price=" + price +
+                ", isPay=" + isPay +
+                ", paytime=" + paytime +
+                ", isSend=" + isSend +
+                ", sendtime=" + sendtime +
+                ", isReceipt=" + isReceipt +
+                ", receipttime=" + receipttime +
+                ", sendNumber='" + sendNumber + '\'' +
+                '}';
+    }
+
     //    public Integer getPrice() {
 //        return price;
 //    }
@@ -179,4 +201,5 @@ public class Order {
 //    public void setuId(Integer uId) {
 //        this.uId = uId;
 //    }
+
 }
