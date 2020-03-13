@@ -16,6 +16,7 @@ public class Shopcar {
     private Integer gStatus;
     private Integer gNum;
     private float sPrice;
+    private Integer uId;
 
     public float getsPrice() {
         return sPrice;
@@ -33,13 +34,13 @@ public class Shopcar {
         this.sId = sId;
     }
 
-//    public Integer getuId() {
-//        return uId;
-//    }
-//
-//    public void setuId(Integer uId) {
-//        this.uId = uId;
-//    }
+    public Integer getuId() {
+        return uId;
+    }
+
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
 
     public String getgName() {
         return gName;
@@ -145,6 +146,7 @@ public class Shopcar {
                 ", gStatus=" + gStatus +
                 ", gNum=" + gNum +
                 ", sPrice=" + sPrice +
+                ", uId=" + uId +
                 '}';
     }
 }
