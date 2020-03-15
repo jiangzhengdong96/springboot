@@ -135,8 +135,8 @@
 							</td>
 <!--							<td th:text="${#dates.format(order.addtime, 'yyyy/MM/dd HH:mm:ss')}"></td>-->
 							<td class="orderstatus">
-							<span class="label label-success radius" th:if="${order.status} eq '1'">正常</span>
-							<span class="label label-defaunt radius" th:if="${order.status} eq '0'">禁用</span>
+							<span class="label label-success radius" th:if="${order.oStatus} eq '1'">正常</span>
+							<span class="label label-defaunt radius" th:if="${order.oStatus} eq '0'">禁用</span>
 							</td>
 
 <!--							<td th:text="${emp.gender}=='1'?'男':'女'"></td>-->
@@ -148,8 +148,8 @@
 <!--								<button th:attr="del_uri=@{/emp/}+${emp.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>-->
 <!--							</td>-->
 							<td class="manage">
-								<a style="text-decoration:none"  th:onClick="'javascript:changeorderstatus('+${order.oId}+','+${order.status}+')'" class="btn btn-sm btn-success startBtn"   th:if="${order.status} eq '0' ">激活</a>
-								<a style="text-decoration:none"  th:onClick="'javascript:changeorderstatus('+${order.oId}+','+${order.status}+')'"  class="btn btn-sm btn-danger stopBtn"   th:if="${order.status} eq '1'">删除</a>
+								<a style="text-decoration:none"  th:onClick="'javascript:changeorderstatus('+${order.oId}+','+${order.oStatus}+')'" class="btn btn-sm btn-success startBtn"   th:if="${order.oStatus} eq '0' ">激活</a>
+								<a style="text-decoration:none"  th:onClick="'javascript:changeorderstatus('+${order.oId}+','+${order.oStatus}+')'"  class="btn btn-sm btn-danger stopBtn"   th:if="${order.oStatus} eq '1'">删除</a>
 
 							</td>
 

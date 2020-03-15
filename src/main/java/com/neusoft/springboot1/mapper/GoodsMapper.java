@@ -29,7 +29,7 @@ public interface GoodsMapper {
             " on goods.u_id=user.u_id left join type on goods.t_id=type.t_id where goods.g_status = 1  and goods.up_status = 1 and goods.g_name like '%${search}%'")
     List<Goods> getGoodsBySearch(String search);
     //是否使用自动生成的组件，以及那个属性是用来封装组件的
-    @Select("select goods.g_id,goods.g_name,goods.g_intro,goods.t_id,goods.g_num,goods.g_pic,goods.g_status,goods.addtime,goods.collectt," +
+    @Select("select goods.g_id,goods.g_name,goods.g_intro,goods.t_id,goods.g_num,goods.u_id,goods.g_pic,goods.g_status,goods.addtime,goods.collectt," +
             "goods.g_price,user.u_name,type.t_name from goods left join user" +
             " on goods.u_id=user.u_id left join type on goods.t_id=type.t_id where goods.g_id = #{gId}")
     Goods getGoodsInfoById(Integer gId);

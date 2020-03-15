@@ -29,5 +29,30 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
         return orderGoodsMapper.insertOrderGoods(orderGoods);
     }
 
+    @Override
+    public List<OrderGoods> getAllOrder(Integer uId) {
+        return orderGoodsMapper.getAllOrder(uId);
+    }
+
+    @Override
+    public List<OrderGoods> getOrdersByIs(Integer uId, Integer isPay, Integer isSend, Integer isReceipt, Integer isComment) {
+        return orderGoodsMapper.getOrdersByIs(uId,isPay,isSend,isReceipt,isComment);
+    }
+
+    @Override
+    public OrderGoods getOrderInfo(Integer id) {
+        return orderGoodsMapper.getOrderInfo(id);
+    }
+
+    @Override
+    public int updateOrderGoodsIsCommented(Integer isCommented, Integer id) {
+        return orderGoodsMapper.updateOrderGoodsIsCommented(isCommented,id);
+    }
+
+    @Override
+    public int updateOrderGoodsIsDeal(Integer isDeal, Integer id) {
+        return orderGoodsMapper.updateOrderGoodsIsDeal(isDeal,id);
+    }
+
 
 }

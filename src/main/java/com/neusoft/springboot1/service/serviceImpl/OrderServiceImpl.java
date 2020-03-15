@@ -6,6 +6,7 @@ import com.neusoft.springboot1.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -33,6 +34,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getLastOrder() {
         return orderMapper.getLastOrder();
+    }
+
+    @Override
+    public int updateOrderisPay(Integer isPay, Timestamp paytime, Integer oId) {
+        return orderMapper.updateOrderisPay(isPay,paytime,oId);
+    }
+
+    @Override
+    public int updateOrderisSend(Integer isSend, Timestamp sendtime, Integer oId) {
+        return orderMapper.updateOrderisSend(isSend,sendtime,oId);
+    }
+
+    @Override
+    public int updateOrderisReceipt(Integer isReceipt, Timestamp receipttime, Integer oId) {
+        return orderMapper.updateOrderisReceipt(isReceipt,receipttime,oId);
     }
 
 

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class Order {
     private Integer oId;
     private String oName;
-    private Integer status ;
+    private Integer oStatus ;
     private Timestamp addtime;
     private Integer payment;
     private String uName;
@@ -44,12 +44,12 @@ public class Order {
         this.oName = oName;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getoStatus() {
+        return oStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setoStatus(Integer oStatus) {
+        this.oStatus = oStatus;
     }
 
     public Timestamp getAddtime() {
@@ -161,7 +161,7 @@ public class Order {
         return "Order{" +
                 "oId=" + oId +
                 ", oName='" + oName + '\'' +
-                ", status=" + status +
+                ", oStatus=" + oStatus +
                 ", addtime=" + addtime +
                 ", payment=" + payment +
                 ", uName='" + uName + '\'' +
