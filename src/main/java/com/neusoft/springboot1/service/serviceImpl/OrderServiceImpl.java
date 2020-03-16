@@ -42,13 +42,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int updateOrderisSend(Integer isSend, Timestamp sendtime, Integer oId) {
-        return orderMapper.updateOrderisSend(isSend,sendtime,oId);
+    public int updateOrderisSend(Integer isSend, Timestamp sendtime, Integer oId, String sendNumber) {
+        return orderMapper.updateOrderisSend(isSend,sendtime,oId,sendNumber);
     }
+
 
     @Override
     public int updateOrderisReceipt(Integer isReceipt, Timestamp receipttime, Integer oId) {
         return orderMapper.updateOrderisReceipt(isReceipt,receipttime,oId);
+    }
+
+    @Override
+    public int deleteOrderById(Integer oId) {
+        return orderMapper.deleteOrderById(oId);
     }
 
 

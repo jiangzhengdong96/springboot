@@ -405,6 +405,8 @@ function upnum(Id,num){
 <script type="text/javascript">
 
 function deleteshopcar(Id){
+if(confirm('确定删除?'))
+  {
 		$.ajax({
 		url:'deleteshopcar',
 		type:'POST',
@@ -420,7 +422,7 @@ function deleteshopcar(Id){
 								alert("数据传输异常");
 							}
 		});
-
+}
 }
 
 

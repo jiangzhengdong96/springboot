@@ -54,5 +54,15 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
         return orderGoodsMapper.updateOrderGoodsIsDeal(isDeal,id);
     }
 
+    @Override
+    public int deleteOrderGoodsById(Integer id) {
+        return orderGoodsMapper.deleteOrderGoodsById(id);
+    }
+
+    @Override
+    public List<OrderGoods> getAllOrderBygId(Integer gId) {
+        return orderGoodsMapper.getAllOrderBygId(gId);
+    }
+
 
 }

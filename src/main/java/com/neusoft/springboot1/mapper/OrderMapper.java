@@ -22,12 +22,15 @@ public interface OrderMapper {
     @Update("update `order` set is_pay=#{isPay},paytime=#{paytime} where o_id =#{oId}")
     int updateOrderisPay(@Param("isPay") Integer isPay, @Param("paytime") Timestamp paytime, @Param("oId") Integer oId);
 //    select * from 'order' by o_id desc limit 0,1;
-    @Update("update `order` set is_send=#{isSend},sendtime=#{sendtime} where o_id =#{oId}")
-    int updateOrderisSend(@Param("isSend") Integer isSend, @Param("sendtime") Timestamp sendtime, @Param("oId") Integer oId);
+    @Update("update `order` set is_send=#{isSend},sendtime=#{sendtime},send_number=#{sendNumber} where o_id =#{oId}")
+    int updateOrderisSend(@Param("isSend") Integer isSend, @Param("sendtime") Timestamp sendtime, @Param("oId") Integer oId,@Param("sendNumber") String sendNumber);
     @Update("update `order` set is_receipt=#{isReceipt},receipttime=#{receipttime} where o_id =#{oId}")
     int updateOrderisReceipt(@Param("isReceipt") Integer isReceipt, @Param("receipttime") Timestamp receipttime, @Param("oId") Integer oId);
 
     @Options(useGeneratedKeys = true,keyProperty = "oId")
     @Insert("insert into `order` (o_name,addtime,u_id,price,address,payment) values(#{oName},#{addtime},#{uId},#{price},#{address},#{payment})")
     int insertOrder(Order order);
+
+    @Delete("delete from `order` where o_id=#{oId}")
+    int deleteOrderById(Integer oId);
 }

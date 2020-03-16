@@ -1,11 +1,12 @@
 package com.neusoft.springboot1.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Comment {
     private Integer cId;
     private String cIntro;
+    private Integer uId;
+    private Integer gId;
     private String uName;
     private String gName;
     private Integer status;
@@ -57,5 +58,35 @@ public class Comment {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getuId() {
+        return uId;
+    }
+
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
+
+    public Integer getgId() {
+        return gId;
+    }
+
+    public void setgId(Integer gId) {
+        this.gId = gId;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "cId=" + cId +
+                ", cIntro='" + cIntro + '\'' +
+                ", uId=" + uId +
+                ", gId=" + gId +
+                ", uName='" + uName + '\'' +
+                ", gName='" + gName + '\'' +
+                ", status=" + status +
+                ", addtime=" + addtime +
+                '}';
     }
 }

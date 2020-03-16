@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 public class OrderGoods {
     private Integer id;
     private String gName;
+    private String tele;
+    private String uName;
     private Integer num;
     private String gPic;
     private float gPrice;
@@ -27,6 +29,15 @@ public class OrderGoods {
     private Timestamp receipttime;
     private String sendNumber;
     private Integer isDeal;
+    private Integer gStatus;
+
+    public Integer getgStatus() {
+        return gStatus;
+    }
+
+    public void setgStatus(Integer gStatus) {
+        this.gStatus = gStatus;
+    }
 
     public Integer getIsDeal() {
         return isDeal;
@@ -34,6 +45,14 @@ public class OrderGoods {
 
     public void setIsDeal(Integer isDeal) {
         this.isDeal = isDeal;
+    }
+
+    public String getuName() {
+        return uName;
+    }
+
+    public void setuName(String uName) {
+        this.uName = uName;
     }
 
     public Integer getId() {
@@ -220,11 +239,21 @@ public class OrderGoods {
         this.sendNumber = sendNumber;
     }
 
+    public String getTele() {
+        return tele;
+    }
+
+    public void setTele(String tele) {
+        this.tele = tele;
+    }
+
     @Override
     public String toString() {
         return "OrderGoods{" +
                 "id=" + id +
                 ", gName='" + gName + '\'' +
+                ", tele='" + tele + '\'' +
+                ", uName='" + uName + '\'' +
                 ", num=" + num +
                 ", gPic='" + gPic + '\'' +
                 ", gPrice=" + gPrice +
@@ -247,6 +276,7 @@ public class OrderGoods {
                 ", receipttime=" + receipttime +
                 ", sendNumber='" + sendNumber + '\'' +
                 ", isDeal=" + isDeal +
+                ", gStatus=" + gStatus +
                 '}';
     }
 }

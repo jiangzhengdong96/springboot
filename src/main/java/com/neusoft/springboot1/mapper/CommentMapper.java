@@ -1,9 +1,7 @@
 package com.neusoft.springboot1.mapper;
 
 import com.neusoft.springboot1.entity.Comment;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,4 +13,9 @@ public interface CommentMapper {
     List<Comment> getAllCommentsById(Integer gId);
     @Update("update comment set status=#{status} where c_id =#{cId}")
     int updateCommentStatus(@Param("status") Integer status, @Param("cId") Integer cId);
+
+    @Options(useGeneratedKeys = true,keyProperty = "cId")
+    @Insert("insert into comment(g_id,u_id,addtime,c_intro) values(#{gId},#{uId},#{addtime},#{cIntro})")
+    int insertComment(Comment comment);
+
 }
