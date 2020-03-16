@@ -30,6 +30,25 @@ public class OrderGoods {
     private String sendNumber;
     private Integer isDeal;
     private Integer gStatus;
+    private Integer upStatus;
+    private Integer isDelete;
+
+
+    public Integer getUpStatus() {
+        return upStatus;
+    }
+
+    public void setUpStatus(Integer upStatus) {
+        this.upStatus = upStatus;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
 
     public Integer getgStatus() {
         return gStatus;

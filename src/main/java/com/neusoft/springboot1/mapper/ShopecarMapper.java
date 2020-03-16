@@ -11,7 +11,7 @@ public interface ShopecarMapper {
 //    @Select("select * from `order`")
     List<Shopcar> getAllShopcar();
 
-    @Select("select s.s_id,s.status,s.addtime,s.g_id,s.s_price,s.updatetime,g.g_name,g.g_pic,g.g_price,s.number,g.up_status,g.g_status,g.g_num from shopcar s left join goods g on s.g_id=g.g_id where s.u_id=#{uId}")
+    @Select("select s.s_id,s.status,s.addtime,s.g_id,s.s_price,s.updatetime,g.g_name,g.is_delete,g.g_pic,g.g_price,s.number,g.up_status,g.g_status,g.g_num from shopcar s left join goods g on s.g_id=g.g_id where s.u_id=#{uId}")
 //    @Select("select * from `order`")
     List<Shopcar> getShopcarById(Integer uId);
 

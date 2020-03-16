@@ -106,11 +106,11 @@ public class UserLoginController {
     public String login(@RequestParam("uName") String uName,
                         @RequestParam("password") String password,
                         Map<String,Object> map, HttpSession session){
-        User user = userService.getUserByuName(uName);
 
+        if(!StringUtils.isEmpty(userService.getUserByuName(uName))){
+            User user = userService.getUserByuName(uName);
 //        System.out.println(manager.getmName());
-        if(user.getStatus().equals(1)){
-            if(!StringUtils.isEmpty(user)){
+            if(user.getStatus().equals(1)){
                 String password1 = stringEncryptor.decrypt(user.getPassword());
                 if(!StringUtils.isEmpty(user.getuName()) && password1.equals(password)){
                     //登陆成功,防止表单重复提交，可以重定向主页
@@ -123,14 +123,16 @@ public class UserLoginController {
                     session.setAttribute("msg","登录失败，用户密码错误！");
                     return "redirect:pageone";
                 }
-            }else {
-                session.setAttribute("msg","登录失败，用户名不存在！");
+            }else{
+                session.setAttribute("msg","登录失败，该用户被禁用！");
                 return "redirect:pageone";
             }
-        }else{
-            session.setAttribute("msg","登录失败，该用户被禁用！");
-            return "redirect:pageone";
+        }else {
+                session.setAttribute("msg","登录失败，用户名不存在！");
+                return "redirect:pageone";
+
         }
+
 
     }
 

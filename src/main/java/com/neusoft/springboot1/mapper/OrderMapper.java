@@ -28,7 +28,7 @@ public interface OrderMapper {
     int updateOrderisReceipt(@Param("isReceipt") Integer isReceipt, @Param("receipttime") Timestamp receipttime, @Param("oId") Integer oId);
 
     @Options(useGeneratedKeys = true,keyProperty = "oId")
-    @Insert("insert into `order` (o_name,addtime,u_id,price,address,payment) values(#{oName},#{addtime},#{uId},#{price},#{address},#{payment})")
+    @Insert("insert into `order` (o_name,addtime,u_id,price,address,payment,is_pay,paytime) values(#{oName},#{addtime},#{uId},#{price},#{address},#{payment},#{isPay},#{paytime})")
     int insertOrder(Order order);
 
     @Delete("delete from `order` where o_id=#{oId}")

@@ -17,6 +17,15 @@ public class Shopcar {
     private Integer gNum;
     private float sPrice;
     private Integer uId;
+    private Integer isDelete;
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
 
     public float getsPrice() {
         return sPrice;

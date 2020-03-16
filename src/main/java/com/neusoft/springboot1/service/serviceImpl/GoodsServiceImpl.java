@@ -54,10 +54,7 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsMapper.updateGoodupStatus(upStatus,gId);
     }
 
-    @Override
-    public int deleteGoodsById(Integer gId) {
-        return goodsMapper.deleteGoodsById(gId);
-    }
+
 
     @Override
     public int insertGoods(Goods goods) {
@@ -72,6 +69,21 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public int updateGoods(Goods goods) {
         return goodsMapper.updateGoods(goods);
+    }
+
+    @Override
+    public int updateGoodsNum(Integer gId, Integer gNum) {
+        return goodsMapper.updateGoodsNum(gId,gNum);
+    }
+
+    @Override
+    public int updateGoodisDelete(Integer isDelete, Integer gId) {
+        return goodsMapper.updateGoodisDelete(isDelete,gId);
+    }
+
+    @Override
+    public List<Goods> getGoodsByuId1(Integer uId) {
+        return goodsMapper.getGoodsByuId1(uId);
     }
 
 

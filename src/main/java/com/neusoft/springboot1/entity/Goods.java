@@ -17,6 +17,7 @@ public class Goods {
     private Integer uId;
     private Integer upStatus;
     private Integer collectt;
+    private Integer isDelete;
 
 
     public Integer getgId() {
@@ -131,6 +132,14 @@ public class Goods {
         this.uId = uId;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
     @Override
     public String toString() {
         return "Goods{" +
@@ -148,6 +157,7 @@ public class Goods {
                 ", uId=" + uId +
                 ", upStatus=" + upStatus +
                 ", collectt=" + collectt +
+                ", isDelete=" + isDelete +
                 '}';
     }
 }

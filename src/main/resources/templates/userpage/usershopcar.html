@@ -106,21 +106,21 @@
                 </thead>
                 <tbody>
                 <tr th:each="shopcar:${shopcars}">
-                    <td th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 and shopcar.status == 1}">
+                    <td th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 and shopcar.status == 1 and shopcar.isDelete == 0}">
                         <input type="checkbox" th:value="${shopcar.sId}" name="ids">
                     </td>
-                    <td th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 || shopcar.status == 0}">
+                    <td th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 || shopcar.status == 0 || shopcar.isDelete == 1}">
                         <input  disabled="disabled"  type="checkbox" value="">
                     </td>
                     <td>
-                        <a style="text-decoration:none;"   th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 }" th:href="@{/goodsinfo/}+${shopcar.gId}" >[[${shopcar.gName}]]</a>
-                        <a style="text-decoration:none;color:black"   th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 }"  >[[${shopcar.gName}]]</a>
+                        <a style="text-decoration:none;"   th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 and shopcar.isDelete == 0}" th:href="@{/goodsinfo/}+${shopcar.gId}" >[[${shopcar.gName}]]</a>
+                        <a style="text-decoration:none;color:black"   th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 || shopcar.isDelete == 1}"  >[[${shopcar.gName}]]</a>
                     </td>
                     <td>
-                        <a style="text-decoration:none;"   th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 }" th:href="@{/goodsinfo/}+${shopcar.gId}" >
+                        <a style="text-decoration:none;"   th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 and shopcar.isDelete == 0}" th:href="@{/goodsinfo/}+${shopcar.gId}" >
                             <img  height="50px"  th:src="@{'asserts/img/uploads/'+${shopcar.gPic}}">
                         </a>
-                        <a style="text-decoration:none;"   th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 }"   >
+                        <a style="text-decoration:none;"   th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 || shopcar.isDelete == 1}"   >
                             <img  height="50px"  th:src="@{'asserts/img/uploads/'+${shopcar.gPic}}">
                         </a>
                     </td>
@@ -138,8 +138,8 @@
                     </td>
                     <td id="setallprice" style="color:red;font-size:20px" th:text="${shopcar.sPrice}"></td>
                     <td class="goodstatus">
-                        <span class="label label-success radius" th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 and shopcar.status == 1}">正常</span>
-                        <span class="label label-defaunt radius" th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 || shopcar.status == 0}">已失效</span>
+                        <span class="label label-success radius" th:if="${shopcar.upStatus == 1 and shopcar.gStatus == 1 and shopcar.status == 1 and shopcar.isDelete == 0}">正常</span>
+                        <span class="label label-defaunt radius" th:if="${shopcar.upStatus == 0 || shopcar.gStatus == 0 || shopcar.status == 0 || shopcar.isDelete == 1}">已失效</span>
                     </td>
                     <td class="manage">
 <!--                        <a style="text-decoration:none"  th:onClick="'javascript:changegoodstatus2('+${shopcar.gId}+','+${shopcar.upStatus}+')'" class="btn btn-sm btn-success startBtn"    th:if="${shopcar.upStatus == 0 and shopcar.gStatus == 1 }">收藏</a>-->
@@ -243,7 +243,7 @@
                             <p  style="margin-left:20px;float:left">合计<span id="allprice1" style="color:red;font-size:20px"></span>元</p>
 
                             <center>
-                                <button id="login1" style="margin-left:-20px; width:150px" class="btn btn-primary">提交订单</button>
+                                <button id="login1" style="margin-left:-20px; width:150px" class="btn btn-primary">立即支付</button>
                             </center>
                         </div>
 
