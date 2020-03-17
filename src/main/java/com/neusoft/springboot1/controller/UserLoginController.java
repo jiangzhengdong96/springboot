@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.Map;
+import java.util.Random;
 
 @Controller
 //@RequestMapping("/UserIndex")
@@ -95,10 +96,24 @@ public class UserLoginController {
     public void sendTemplateMail(@RequestParam("email") String email,
                                    HttpSession session) {
         //发送邮件
-        String verifyCode ="123456";
+        String verifyCode =getRandomNickname(6);
+        System.out.println(verifyCode);
         mailService.sendMail(email,"用户注册验证码",verifyCode);
         session.setAttribute("verifyCode",verifyCode);
     }
+
+
+    //生成随机n位数
+    public static String getRandomNickname(int length) {
+        String val = "";
+        Random random = new Random();
+        for (int i = 0; i < length; i++)
+        {
+            val += String.valueOf(random.nextInt(10));
+        }
+        return val;
+    }
+
 
 
     @PostMapping(value = "/userlogin")
